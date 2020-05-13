@@ -46,10 +46,10 @@
 #ifndef RVIZ_MESH_PLUGIN__MESH_POSE_TOOL_H_
 #define RVIZ_MESH_PLUGIN__MESH_POSE_TOOL_H_
 
- #include <OGRE/OgreVector3.h>
- #include <OGRE/OgreQuaternion.h>
- #include <OGRE/OgreManualObject.h>
- #include <OGRE/OgreRay.h>
+ #include <OgreVector3.h>
+ #include <OgreQuaternion.h>
+ #include <OgreManualObject.h>
+ #include <OgreRay.h>
  
  #include <QCursor>
  #include <ros/ros.h>

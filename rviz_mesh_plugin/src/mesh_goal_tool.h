@@ -47,9 +47,9 @@
 
 #include "mesh_pose_tool.h"
 #include <geometry_msgs/PoseStamped.h>
-#include <rviz/properties/bool_property.h>
-#include <rviz/properties/string_property.h>
-#include <rviz/display_context.h>
+#include <rviz_common/properties/bool_property.hpp>
+#include <rviz_common/properties/string_property.hpp>
+#include <rviz_common/display_context.hpp>
 
 #ifndef Q_MOC_RUN  // See: https://bugreports.qt-project.org/browse/QTBUG-22829
 #include <QObject>

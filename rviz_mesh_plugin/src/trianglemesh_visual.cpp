@@ -1,10 +1,10 @@
-#include <OGRE/OgreSubEntity.h>
-#include <OGRE/OgreRenderOperation.h>
-#include <OGRE/OgreTextureManager.h>
-#include <OGRE/OgreHardwarePixelBuffer.h>
+#include <OgreSubEntity.h>
+#include <OgreRenderOperation.h>
+#include <OgreTextureManager.h>
+#include <OgreHardwarePixelBuffer.h>
 
-#include <rviz/display_context.h>
-#include <rviz/frame_manager.h>
+#include <rviz_common/display_context.hpp>
+#include <rviz_common/frame_manager_iface.hpp>
 
 #include <stdint.h>
 
@@ -15,7 +15,7 @@ namespace rviz_mesh_plugin
 {
 
   TriangleMeshVisual::TriangleMeshVisual(
-    rviz::DisplayContext* context,
+    rviz_common::DisplayContext* context,
       size_t displayID,
       size_t meshID,
       size_t randomID)
@@ -333,7 +333,7 @@ void TriangleMeshVisual::updateNormals(float ScalingFactor)
 
 
 
-void TriangleMeshVisual::enteringColoredTriangleMesh(const mesh_msgs::TriangleMesh& mesh){
+void TriangleMeshVisual::enteringColoredTriangleMesh(const mesh_msgs::msg::TriangleMesh& mesh){
 
   if(!m_triangle_colors_enabled){
     return;
@@ -396,7 +396,7 @@ void TriangleMeshVisual::enteringColoredTriangleMesh(const mesh_msgs::TriangleMe
   m_mesh->end();
 }
 
-void TriangleMeshVisual::enteringGeneralTriangleMesh(const mesh_msgs::TriangleMesh& mesh){
+void TriangleMeshVisual::enteringGeneralTriangleMesh(const mesh_msgs::msg::TriangleMesh& mesh){
 
   std::stringstream sstm;
 
@@ -463,7 +463,7 @@ void TriangleMeshVisual::enteringGeneralTriangleMesh(const mesh_msgs::TriangleMe
 
 }
 
-void TriangleMeshVisual::enteringNormals(const mesh_msgs::TriangleMesh& mesh){
+void TriangleMeshVisual::enteringNormals(const mesh_msgs::msg::TriangleMesh& mesh){
 
   if(!m_vertex_normals_enabled){
     return;
@@ -493,12 +493,12 @@ void TriangleMeshVisual::enteringNormals(const mesh_msgs::TriangleMesh& mesh){
 
 }
 
-void TriangleMeshVisual::setMessage(const mesh_msgs::TriangleMeshStamped::ConstPtr& mesh_msg)
+void TriangleMeshVisual::setMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstPtr& mesh_msg)
 {
   reset();
 
   // for a better legibility of the code
-  const mesh_msgs::TriangleMesh& mesh = mesh_msg->mesh;
+  const mesh_msgs::msg::TriangleMesh& mesh = mesh_msg->mesh;
 
   // default: vertex colors are optional and therefore disabled
   m_vertex_colors_enabled = false;

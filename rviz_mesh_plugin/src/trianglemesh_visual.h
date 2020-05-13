@@ -51,17 +51,17 @@
 #ifndef TRIANGLEMESH_VISUAL_H
 #define TRIANGLEMESH_VISUAL_H
 
-#include <mesh_msgs/TriangleMeshStamped.h>
+#include <mesh_msgs/msg/triangle_mesh_stamped.hpp>
 
-#include <rviz/display_context.h>
-#include <rviz/frame_manager.h>
+#include <rviz_common/display_context.hpp>
+#include <rviz_common/frame_manager_iface.hpp>
 
-#include <OGRE/OgreSceneNode.h>
-#include <OGRE/OgreSceneManager.h>
-#include <OGRE/OgreManualObject.h>
-#include <OGRE/OgreEntity.h>
-#include <OGRE/OgreMaterialManager.h>
-#include <OGRE/OgreColourValue.h>
+#include <OgreSceneNode.h>
+#include <OgreSceneManager.h>
+#include <OgreManualObject.h>
+#include <OgreEntity.h>
+#include <OgreMaterialManager.h>
+#include <OgreColourValue.h>
 
 namespace Ogre
 {
@@ -92,7 +92,7 @@ public:
      * @param meshID The mesh id
      * @param randomID random number that will be used as part of the meshes UID
      */
-    TriangleMeshVisual(rviz::DisplayContext* context,
+    TriangleMeshVisual(rviz_common::DisplayContext* context,
                        size_t displayID,
                        size_t meshID,
                        size_t randomID);
@@ -112,7 +112,7 @@ public:
      *
      * @param meshMsg         Message containing the mesh
      */
-    void setMessage(const mesh_msgs::TriangleMeshStamped::ConstPtr& meshMsg);
+    void setMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstPtr& meshMsg);
 
 
    /**
@@ -187,9 +187,9 @@ private:
 
     void showTextures(Ogre::Pass* pass);
 
-    void enteringGeneralTriangleMesh(const mesh_msgs::TriangleMesh& mesh);
-    void enteringColoredTriangleMesh(const mesh_msgs::TriangleMesh& mesh);
-    void enteringNormals(const mesh_msgs::TriangleMesh& mesh);
+    void enteringGeneralTriangleMesh(const mesh_msgs::msg::TriangleMesh& mesh);
+    void enteringColoredTriangleMesh(const mesh_msgs::msg::TriangleMesh& mesh);
+    void enteringNormals(const mesh_msgs::msg::TriangleMesh& mesh);
 
     bool m_vertex_normals_enabled;
     bool m_vertex_colors_enabled;
@@ -200,7 +200,7 @@ private:
     Ogre::SceneNode* m_sceneNode;
 
     //! The context that contains the display information.
-    rviz::DisplayContext* m_displayContext;
+    rviz_common::DisplayContext* m_displayContext;
 
     //! First ID of the created mesh
     size_t m_prefix;

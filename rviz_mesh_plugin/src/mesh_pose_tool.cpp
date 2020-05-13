@@ -50,12 +50,12 @@
 #include <OgreViewport.h>
 
 
-#include <rviz/geometry.h>
-#include <rviz/ogre_helpers/arrow.h>
-#include <rviz/viewport_mouse_event.h>
-#include <rviz/load_resource.h>
-#include <rviz/render_panel.h>
-#include <rviz/display_context.h>
+#include <rviz_rendering/geometry.hpp>
+#include <rviz_rendering/arrow.hpp>
+#include <rviz_common/viewport_mouse_event.hpp>
+#include <rviz_common/load_resource.hpp>
+#include <rviz_common/render_panel.hpp>
+#include <rviz_common/display_context.hpp>
 
 #include "mesh_pose_tool.h"
 
@@ -82,7 +82,7 @@ namespace rviz_mesh_plugin
 
   void MeshPoseTool::activate()
   {
-    setStatus( "Click and on a mesh_msgs::TriangleMesh to set the position and drag the mouse for the orientation." );
+    setStatus( "Click and on a mesh_msgs::msg::TriangleMesh to set the position and drag the mouse for the orientation." );
     state_ = Position;
   }
 

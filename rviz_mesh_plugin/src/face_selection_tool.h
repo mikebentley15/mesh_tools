@@ -63,30 +63,30 @@
 #include <rviz/visualization_manager.h>
 #include <rviz/geometry.h>
 
-#include <rviz/display_context.h>
-#include <rviz/frame_manager.h>
-#include <rviz/display.h>
+#include <rviz_common/display_context.hpp>
+#include <rviz_common/frame_manager_iface.hpp>
+#include <rviz_common/display.hpp>
 
-#include <rviz/tool.h>
-#include <rviz/tool_manager.h>
-#include <rviz/display_group.h>
+#include <rviz_common/tool.hpp>
+//#include <rviz_common/tool_manager.hpp>
+#include <rviz_common/display_group.hpp>
 
-#include <geometry_msgs/Point32.h>
-#include <geometry_msgs/PoseStamped.h>
-#include <mesh_msgs/TriangleMeshStamped.h>
-#include <std_msgs/Int32.h>
+#include <geometry_msgs/msg/point32.hpp>
+#include <geometry_msgs/msg/pose_stamped.hpp>
+#include <mesh_msgs/msg/triangle_mesh_stamped.hpp>
+#include <std_msgs/msg/int32.hpp>
 
 #ifndef Q_MOC_RUN
 #include <rviz/mesh_loader.h>
 
-#include <OGRE/OgreManualObject.h>
-#include <OGRE/OgreSceneNode.h>
-#include <OGRE/OgreSceneManager.h>
-#include <OGRE/OgreEntity.h>
-#include <OGRE/OgreStringConverter.h>
-#include <OGRE/OgreMaterialManager.h>
-#include <OGRE/OgreRay.h>
-#include <OGRE/OgreSceneQuery.h>
+#include <OgreManualObject.h>
+#include <OgreSceneNode.h>
+#include <OgreSceneManager.h>
+#include <OgreEntity.h>
+#include <OgreStringConverter.h>
+#include <OgreMaterialManager.h>
+#include <OgreRay.h>
+#include <OgreSceneQuery.h>
 
 #endif
 

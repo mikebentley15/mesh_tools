@@ -55,20 +55,20 @@
 
 #include "textured_mesh_visual.h"
 
-#include <mesh_msgs/MeshGeometryStamped.h>
-#include <mesh_msgs/MeshGeometry.h>
-#include <mesh_msgs/MeshVertexColorsStamped.h>
-#include <mesh_msgs/MeshVertexColors.h>
-#include <mesh_msgs/MeshVertexCostsStamped.h>
-#include <mesh_msgs/MeshVertexCosts.h>
-#include <mesh_msgs/MeshMaterialsStamped.h>
-#include <mesh_msgs/MeshMaterials.h>
-#include <mesh_msgs/MeshMaterial.h>
-#include <mesh_msgs/MeshTexture.h>
+#include <mesh_msgs/msg/mesh_geometry_stamped.hpp>
+#include <mesh_msgs/msg/mesh_geometry.hpp>
+#include <mesh_msgs/msg/mesh_vertex_colors_stamped.hpp>
+#include <mesh_msgs/msg/mesh_vertex_colors.hpp>
+#include <mesh_msgs/msg/mesh_vertex_costs_stamped.hpp>
+#include <mesh_msgs/msg/mesh_vertex_costs.hpp>
+#include <mesh_msgs/msg/mesh_materials_stamped.hpp>
+#include <mesh_msgs/msg/mesh_materials.hpp>
+#include <mesh_msgs/msg/mesh_material.hpp>
+#include <mesh_msgs/msg/mesh_texture.hpp>
 
-#include <sensor_msgs/Image.h>
+#include <sensor_msgs/msg/image.hpp>
 
-#include <rviz/display.h>
+#include <rviz_common/display.hpp>
 
 #ifndef Q_MOC_RUN
 #include <message_filters/subscriber.h>
@@ -164,19 +164,19 @@ protected:
      * @brief Handler for incoming geometry messages. Validate data and update mesh
      * @param meshMsg The geometry
      */
-    void incomingGeometry(const mesh_msgs::MeshGeometryStamped::ConstPtr& meshMsg);
+    void incomingGeometry(const mesh_msgs::msg::MeshGeometryStamped::ConstPtr& meshMsg);
 
     /**
      * @brief Handler for incoming vertex color messages. Validate data and update mesh
      * @param colorsStamped The vertex colors
      */
-    void incomingVertexColors(const mesh_msgs::MeshVertexColorsStamped::ConstPtr& colorsStamped);
+    void incomingVertexColors(const mesh_msgs::msg::MeshVertexColorsStamped::ConstPtr& colorsStamped);
 
     /**
      * @brief Handler for incoming vertex cost messages. Validate data and update mesh
      * @param costsStamped The vertex costs
      */
-    void incomingVertexCosts(const mesh_msgs::MeshVertexCostsStamped::ConstPtr& costsStamped);
+    void incomingVertexCosts(const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr& costsStamped);
 
 
 private Q_SLOTS:
@@ -239,13 +239,13 @@ private:
      * @brief Cache function for vertex cost messages.
      * @param costsStamped The vertex cost message
      */
-    void cacheVertexCosts(const mesh_msgs::MeshVertexCostsStamped::ConstPtr costsStamped);
+    void cacheVertexCosts(const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr costsStamped);
 
     /**
      * @brief Sets data for trianglemesh_visual and updates the mesh.
      * @param meshMsg Message containing geometry information
      */
-    void processMessage(const mesh_msgs::MeshGeometryStamped::ConstPtr& meshMsg);
+    void processMessage(const mesh_msgs::msg::MeshGeometryStamped::ConstPtr& meshMsg);
 
     /**
      * @brief Requests vertex colors from the specified service
@@ -267,31 +267,31 @@ private:
     void initialServiceCall();
 
     /// Subscriber for meshMsg
-    message_filters::Subscriber<mesh_msgs::MeshGeometryStamped> m_meshSubscriber;
+    message_filters::Subscriber<mesh_msgs::msg::MeshGeometryStamped> m_meshSubscriber;
 
     /// Subscriber for vertex colors
-    message_filters::Subscriber<mesh_msgs::MeshVertexColorsStamped> m_vertexColorsSubscriber;
+    message_filters::Subscriber<mesh_msgs::msg::MeshVertexColorsStamped> m_vertexColorsSubscriber;
 
     /// Subscriber for vertex costs
-    message_filters::Subscriber<mesh_msgs::MeshVertexCostsStamped> m_vertexCostsSubscriber;
+    message_filters::Subscriber<mesh_msgs::msg::MeshVertexCostsStamped> m_vertexCostsSubscriber;
 
     /// Messagefilter for meshMsg
-    tf2_ros::MessageFilter<mesh_msgs::MeshGeometryStamped>* m_tfMeshFilter;
+    tf2_ros::MessageFilter<mesh_msgs::msg::MeshGeometryStamped>* m_tfMeshFilter;
 
     /// Messagefilter for vertex colors
-    tf2_ros::MessageFilter<mesh_msgs::MeshVertexColorsStamped>* m_tfVertexColorsFilter;
+    tf2_ros::MessageFilter<mesh_msgs::msg::MeshVertexColorsStamped>* m_tfVertexColorsFilter;
 
     /// Messagefilter for vertex costs
-    tf2_ros::MessageFilter<mesh_msgs::MeshVertexCostsStamped>* m_tfVertexCostsFilter;
+    tf2_ros::MessageFilter<mesh_msgs::msg::MeshVertexCostsStamped>* m_tfVertexCostsFilter;
 
     /// Synchronizer for meshMsgs
-    message_filters::Cache<mesh_msgs::MeshGeometryStamped>* m_meshSynchronizer;
+    message_filters::Cache<mesh_msgs::msg::MeshGeometryStamped>* m_meshSynchronizer;
 
     /// Synchronizer for vertex colors
-    message_filters::Cache<mesh_msgs::MeshVertexColorsStamped>* m_colorsSynchronizer;
+    message_filters::Cache<mesh_msgs::msg::MeshVertexColorsStamped>* m_colorsSynchronizer;
 
     /// Synchronizer for vertex costs
-    message_filters::Cache<mesh_msgs::MeshVertexCostsStamped>* m_costsSynchronizer;
+    message_filters::Cache<mesh_msgs::msg::MeshVertexCostsStamped>* m_costsSynchronizer;
 
     /// Counter for the received messages
     uint32_t m_messagesReceived;
@@ -399,7 +399,7 @@ private:
     rviz::FloatProperty* m_costUpperLimit;
 
     /// Cache for received vertex cost messages
-    std::map<std::string, const mesh_msgs::MeshVertexCostsStamped::ConstPtr> m_costCache;
+    std::map<std::string, const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr> m_costCache;
 
 };
 } // End namespace rviz_mesh_plugin

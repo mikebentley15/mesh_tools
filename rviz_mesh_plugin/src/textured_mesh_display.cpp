@@ -52,34 +52,34 @@
 
 #include "textured_mesh_display.h"
 
-#include <mesh_msgs/GetVertexColors.h>
-#include <mesh_msgs/GetMaterials.h>
-#include <mesh_msgs/GetGeometry.h>
-#include <mesh_msgs/GetTexture.h>
-#include <mesh_msgs/GetUUID.h>
+#include <mesh_msgs/srv/get_vertex_colors.hpp>
+#include <mesh_msgs/srv/get_materials.hpp>
+#include <mesh_msgs/srv/get_geometry.hpp>
+#include <mesh_msgs/srv/get_texture.hpp>
+#include <mesh_msgs/srv/get_uuid.hpp>
 
-#include <OGRE/OgreSceneNode.h>
-#include <OGRE/OgreSceneManager.h>
+#include <OgreSceneNode.h>
+#include <OgreSceneManager.h>
 
-#include <tf/transform_listener.h>
+#include <tf2_ros/transform_listener.h>
 
-#include <rviz/visualization_manager.h>
-#include <rviz/frame_manager.h>
-#include <rviz/display_context.h>
-#include <rviz/properties/property_tree_model.h>
-#include <rviz/properties/bool_property.h>
-#include <rviz/properties/color_property.h>
-#include <rviz/properties/float_property.h>
-#include <rviz/properties/int_property.h>
-#include <rviz/properties/ros_topic_property.h>
-#include <rviz/properties/enum_property.h>
-#include <rviz/properties/string_property.h>
+//#include <rviz/visualization_manager.h>
+#include <rviz_common/frame_manager_iface.hpp>
+#include <rviz_common/display_context.hpp>
+#include <rviz_common/properties/property_tree_model.hpp>
+#include <rviz_common/properties/bool_property.hpp>
+#include <rviz_common/properties/color_property.hpp>
+#include <rviz_common/properties/float_property.hpp>
+#include <rviz_common/properties/int_property.hpp>
+#include <rviz_common/properties/ros_topic_property.hpp>
+#include <rviz_common/properties/enum_property.hpp>
+#include <rviz_common/properties/string_property.hpp>
 
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int.hpp>
 #include <boost/random/variate_generator.hpp>
 
-#include <ros/callback_queue.h>
+//#include <ros/callback_queue.h>
 
 namespace rviz_mesh_plugin
 {
@@ -96,7 +96,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_meshTopic = new rviz::RosTopicProperty(
         "Geometry Topic",
         "",
-        QString::fromStdString(ros::message_traits::datatype<mesh_msgs::MeshGeometryStamped>()),
+        QString::fromStdString(ros::message_traits::datatype<mesh_msgs::msg::MeshGeometryStamped>()),
         "Geometry topic to subscribe to.",
         this,
         SLOT(updateTopic())
@@ -141,7 +141,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_vertexColorsTopic = new rviz::RosTopicProperty(
         "Vertex Colors Topic",
         "",
-        QString::fromStdString(ros::message_traits::datatype<mesh_msgs::MeshVertexColorsStamped>()),
+        QString::fromStdString(ros::message_traits::datatype<mesh_msgs::msg::MeshVertexColorsStamped>()),
         "Vertex color topic to subscribe to.",
         m_displayType,
         SLOT(updateTopic()),
@@ -151,7 +151,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_vertexCostsTopic = new rviz::RosTopicProperty(
         "Vertex Costs Topic",
         "",
-        QString::fromStdString(ros::message_traits::datatype<mesh_msgs::MeshVertexCostsStamped>()),
+        QString::fromStdString(ros::message_traits::datatype<mesh_msgs::msg::MeshVertexCostsStamped>()),
         "Vertex cost topic to subscribe to.",
         m_displayType,
         SLOT(updateTopic()),
@@ -336,7 +336,7 @@ TexturedMeshDisplay::~TexturedMeshDisplay()
 
 void TexturedMeshDisplay::onInitialize()
 {
-    m_tfMeshFilter = new tf2_ros::MessageFilter<mesh_msgs::MeshGeometryStamped>(
+    m_tfMeshFilter = new tf2_ros::MessageFilter<mesh_msgs::msg::MeshGeometryStamped>(
         *rviz::Display::context_->getTF2BufferPtr(),
         rviz::Display::fixed_frame_.toStdString(),
         2,
@@ -345,7 +345,7 @@ void TexturedMeshDisplay::onInitialize()
     m_tfMeshFilter->connectInput(m_meshSubscriber);
     context_->getFrameManager()->registerFilterForTransformStatusCheck(m_tfMeshFilter, this);
 
-    m_tfVertexColorsFilter = new tf2_ros::MessageFilter<mesh_msgs::MeshVertexColorsStamped>(
+    m_tfVertexColorsFilter = new tf2_ros::MessageFilter<mesh_msgs::msg::MeshVertexColorsStamped>(
         *rviz::Display::context_->getTF2BufferPtr(),
         rviz::Display::fixed_frame_.toStdString(),
         10,
@@ -354,7 +354,7 @@ void TexturedMeshDisplay::onInitialize()
     m_tfVertexColorsFilter->connectInput(m_vertexColorsSubscriber);
     context_->getFrameManager()->registerFilterForTransformStatusCheck(m_tfVertexColorsFilter, this);
 
-    m_tfVertexCostsFilter = new tf2_ros::MessageFilter<mesh_msgs::MeshVertexCostsStamped>(
+    m_tfVertexCostsFilter = new tf2_ros::MessageFilter<mesh_msgs::msg::MeshVertexCostsStamped>(
         *rviz::Display::context_->getTF2BufferPtr(),
         rviz::Display::fixed_frame_.toStdString(),
         10,
@@ -376,24 +376,24 @@ void TexturedMeshDisplay::onInitialize()
 void TexturedMeshDisplay::initialServiceCall()
 {
     ros::NodeHandle n;
-    ros::ServiceClient m_uuidClient = n.serviceClient<mesh_msgs::GetUUID>("get_uuid");
+    ros::ServiceClient m_uuidClient = n.serviceClient<mesh_msgs::msg::GetUUID>("get_uuid");
 
-    mesh_msgs::GetUUID srv_uuid;
+    mesh_msgs::msg::GetUUID srv_uuid;
     if (m_uuidClient.call(srv_uuid))
     {
         std::string uuid = (std::string)srv_uuid.response.uuid;
 
         ROS_INFO_STREAM("Initial data available for UUID=" << uuid);
 
-        ros::ServiceClient m_geometryClient = n.serviceClient<mesh_msgs::GetGeometry>("get_geometry");
+        ros::ServiceClient m_geometryClient = n.serviceClient<mesh_msgs::msg::GetGeometry>("get_geometry");
 
-        mesh_msgs::GetGeometry srv_geometry;
+        mesh_msgs::msg::GetGeometry srv_geometry;
         srv_geometry.request.uuid = uuid;
         if (m_geometryClient.call(srv_geometry))
         {
             ROS_INFO_STREAM("Found geometry for UUID=" << uuid);
-            mesh_msgs::MeshGeometryStamped::ConstPtr geometry
-                = boost::make_shared<const mesh_msgs::MeshGeometryStamped>(srv_geometry.response.mesh_geometry_stamped);
+            mesh_msgs::msg::MeshGeometryStamped::ConstPtr geometry
+                = boost::make_shared<const mesh_msgs::msg::MeshGeometryStamped>(srv_geometry.response.mesh_geometry_stamped);
             processMessage(geometry);
         }
         else
@@ -451,7 +451,7 @@ void TexturedMeshDisplay::subscribe()
     {
         m_meshBufferSize->show();
         m_meshSynchronizer =
-            new message_filters::Cache<mesh_msgs::MeshGeometryStamped>(
+            new message_filters::Cache<mesh_msgs::msg::MeshGeometryStamped>(
                 m_meshSubscriber, 10
             );
         m_meshSynchronizer->registerCallback(
@@ -459,7 +459,7 @@ void TexturedMeshDisplay::subscribe()
         );
 
         m_colorsSynchronizer =
-            new message_filters::Cache<mesh_msgs::MeshVertexColorsStamped>(
+            new message_filters::Cache<mesh_msgs::msg::MeshVertexColorsStamped>(
                 m_vertexColorsSubscriber, 1
             );
         m_colorsSynchronizer->registerCallback(
@@ -467,7 +467,7 @@ void TexturedMeshDisplay::subscribe()
         );
 
         m_costsSynchronizer =
-            new message_filters::Cache<mesh_msgs::MeshVertexCostsStamped>(
+            new message_filters::Cache<mesh_msgs::msg::MeshVertexCostsStamped>(
                 m_vertexCostsSubscriber, 1
             );
         m_costsSynchronizer->registerCallback(
@@ -519,7 +519,7 @@ void TexturedMeshDisplay::fixedFrameChanged()
     reset();
 }
 
-void TexturedMeshDisplay::incomingVertexColors(const mesh_msgs::MeshVertexColorsStamped::ConstPtr& colorsStamped)
+void TexturedMeshDisplay::incomingVertexColors(const mesh_msgs::msg::MeshVertexColorsStamped::ConstPtr& colorsStamped)
 {
     if (m_meshVisuals.empty())
     {
@@ -537,7 +537,7 @@ void TexturedMeshDisplay::incomingVertexColors(const mesh_msgs::MeshVertexColors
     updateMesh();
 }
 
-void TexturedMeshDisplay::incomingVertexCosts(const mesh_msgs::MeshVertexCostsStamped::ConstPtr& costsStamped)
+void TexturedMeshDisplay::incomingVertexCosts(const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr& costsStamped)
 {
     if (m_meshVisuals.empty())
     {
@@ -555,15 +555,15 @@ void TexturedMeshDisplay::incomingVertexCosts(const mesh_msgs::MeshVertexCostsSt
 }
 
 void TexturedMeshDisplay::cacheVertexCosts(
-    const mesh_msgs::MeshVertexCostsStamped::ConstPtr costsStamped
+    const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr costsStamped
 )
 {
     ROS_INFO_STREAM("Cache vertex cost map '" << costsStamped->type << "' for UUID " << costsStamped->uuid);
 
     // insert into cache
-    std::pair<std::map<std::string, const mesh_msgs::MeshVertexCostsStamped::ConstPtr>::iterator, bool> ret =
+    std::pair<std::map<std::string, const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr>::iterator, bool> ret =
         m_costCache.insert(
-            std::pair<std::string, const mesh_msgs::MeshVertexCostsStamped::ConstPtr>(costsStamped->type, costsStamped));
+            std::pair<std::string, const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr>(costsStamped->type, costsStamped));
     if(ret.second)
     {
         ROS_INFO_STREAM("The cost layer \"" << costsStamped->type << "\" has been added.");
@@ -574,13 +574,13 @@ void TexturedMeshDisplay::cacheVertexCosts(
         //m_selectVertexCostMap->addOptionStd(costsStamped->type, m_selectVertexCostMap->numChildren());
         m_costCache.erase(ret.first);
         m_costCache.insert(
-            std::pair<std::string, const mesh_msgs::MeshVertexCostsStamped::ConstPtr>(costsStamped->type, costsStamped));
+            std::pair<std::string, const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr>(costsStamped->type, costsStamped));
         ROS_INFO_STREAM("The cost layer \"" << costsStamped->type << "\" has been updated.");
     }
 
 }
 
-void TexturedMeshDisplay::incomingGeometry(const mesh_msgs::MeshGeometryStamped::ConstPtr& meshMsg)
+void TexturedMeshDisplay::incomingGeometry(const mesh_msgs::msg::MeshGeometryStamped::ConstPtr& meshMsg)
 {
     m_messagesReceived++;
     setStatus(rviz::StatusProperty::Ok, "Topic", QString::number(m_messagesReceived) + " messages received");
@@ -706,11 +706,11 @@ void TexturedMeshDisplay::initServices()
 {
     // Initialize service clients
     ros::NodeHandle n;
-    m_vertexColorClient = n.serviceClient<mesh_msgs::GetVertexColors>(m_vertexColorServiceName->getStdString());
+    m_vertexColorClient = n.serviceClient<mesh_msgs::msg::GetVertexColors>(m_vertexColorServiceName->getStdString());
 
-    m_materialsClient = n.serviceClient<mesh_msgs::GetMaterials>(m_materialServiceName->getStdString());
+    m_materialsClient = n.serviceClient<mesh_msgs::msg::GetMaterials>(m_materialServiceName->getStdString());
 
-    m_textureClient = n.serviceClient<mesh_msgs::GetTexture>(m_textureServiceName->getStdString());
+    m_textureClient = n.serviceClient<mesh_msgs::msg::GetTexture>(m_textureServiceName->getStdString());
 }
 
 void TexturedMeshDisplay::updateVertexColorService()
@@ -725,7 +725,7 @@ void TexturedMeshDisplay::updateVertexColorService()
 
     // Update vertex color service client
     ros::NodeHandle n;
-    m_vertexColorClient = n.serviceClient<mesh_msgs::GetVertexColors>(m_vertexColorServiceName->getStdString());
+    m_vertexColorClient = n.serviceClient<mesh_msgs::msg::GetVertexColors>(m_vertexColorServiceName->getStdString());
     if (m_vertexColorClient.exists())
     {
         setStatus(rviz::StatusProperty::Ok, "Services", "Vertex Color Service OK");
@@ -753,8 +753,8 @@ void TexturedMeshDisplay::updateMaterialAndTextureServices()
 
     // Update material and texture service clients
     ros::NodeHandle n;
-    m_materialsClient = n.serviceClient<mesh_msgs::GetMaterials>(m_materialServiceName->getStdString());
-    m_textureClient = n.serviceClient<mesh_msgs::GetTexture>(m_textureServiceName->getStdString());
+    m_materialsClient = n.serviceClient<mesh_msgs::msg::GetMaterials>(m_materialServiceName->getStdString());
+    m_textureClient = n.serviceClient<mesh_msgs::msg::GetTexture>(m_textureServiceName->getStdString());
     if (m_materialsClient.exists())
     {
         if (!m_meshVisuals.empty())
@@ -807,7 +807,7 @@ boost::shared_ptr<TexturedMeshVisual> TexturedMeshDisplay::getCurrentVisual()
     return m_meshVisuals.back();
 }
 
-void TexturedMeshDisplay::processMessage(const mesh_msgs::MeshGeometryStamped::ConstPtr& meshMsg)
+void TexturedMeshDisplay::processMessage(const mesh_msgs::msg::MeshGeometryStamped::ConstPtr& meshMsg)
 {
     Ogre::Quaternion orientation;
     Ogre::Vector3 position;
@@ -846,13 +846,13 @@ void TexturedMeshDisplay::processMessage(const mesh_msgs::MeshGeometryStamped::C
 
 void TexturedMeshDisplay::requestVertexColors(boost::shared_ptr<TexturedMeshVisual> visual, std::string uuid)
 {
-    mesh_msgs::GetVertexColors srv;
+    mesh_msgs::msg::GetVertexColors srv;
     srv.request.uuid = uuid;
     if (m_vertexColorClient.call(srv))
     {
         ROS_INFO("Successful vertex colors service call!");
-        mesh_msgs::MeshVertexColorsStamped::ConstPtr meshVertexColors =
-            boost::make_shared<const mesh_msgs::MeshVertexColorsStamped>(srv.response.mesh_vertex_colors_stamped);
+        mesh_msgs::msg::MeshVertexColorsStamped::ConstPtr meshVertexColors =
+            boost::make_shared<const mesh_msgs::msg::MeshVertexColorsStamped>(srv.response.mesh_vertex_colors_stamped);
 
         visual->setVertexColors(meshVertexColors);
     }
@@ -864,30 +864,30 @@ void TexturedMeshDisplay::requestVertexColors(boost::shared_ptr<TexturedMeshVisu
 
 void TexturedMeshDisplay::requestMaterials(boost::shared_ptr<TexturedMeshVisual> visual, std::string uuid)
 {
-    mesh_msgs::GetMaterials srv;
+    mesh_msgs::msg::GetMaterials srv;
     srv.request.uuid = uuid;
     if (m_materialsClient.call(srv))
     {
         ROS_INFO("Successful materials service call!");
 
-        mesh_msgs::MeshMaterialsStamped::ConstPtr meshMaterialsStamped =
-            boost::make_shared<const mesh_msgs::MeshMaterialsStamped>(srv.response.mesh_materials_stamped);
+        mesh_msgs::msg::MeshMaterialsStamped::ConstPtr meshMaterialsStamped =
+            boost::make_shared<const mesh_msgs::msg::MeshMaterialsStamped>(srv.response.mesh_materials_stamped);
 
 
         visual->setMaterials(meshMaterialsStamped);
 
-        for (mesh_msgs::MeshMaterial material : meshMaterialsStamped->mesh_materials.materials)
+        for (mesh_msgs::msg::MeshMaterial material : meshMaterialsStamped->mesh_materials.materials)
         {
             if (material.has_texture)
             {
-                mesh_msgs::GetTexture texSrv;
+                mesh_msgs::msg::GetTexture texSrv;
                 texSrv.request.uuid = uuid;
                 texSrv.request.texture_index = material.texture_index;
                 if (m_textureClient.call(texSrv))
                 {
                     ROS_INFO("Successful texture service call with index %d!", material.texture_index);
-                    mesh_msgs::MeshTexture::ConstPtr texture =
-                        boost::make_shared<const mesh_msgs::MeshTexture>(texSrv.response.texture);
+                    mesh_msgs::msg::MeshTexture::ConstPtr texture =
+                        boost::make_shared<const mesh_msgs::msg::MeshTexture>(texSrv.response.texture);
 
                     visual->addTexture(texture);
                 }
@@ -906,5 +906,5 @@ void TexturedMeshDisplay::requestMaterials(boost::shared_ptr<TexturedMeshVisual>
 
 } // end namespace rviz_mesh_plugin
 
-#include <pluginlib/class_list_macros.h>
+#include <pluginlib/class_list_macros.hpp>
 PLUGINLIB_EXPORT_CLASS(rviz_mesh_plugin::TexturedMeshDisplay, rviz::Display)

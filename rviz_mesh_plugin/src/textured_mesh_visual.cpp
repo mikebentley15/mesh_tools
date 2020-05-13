@@ -1,13 +1,13 @@
 #include "textured_mesh_visual.h"
 
-#include <OGRE/OgreSubEntity.h>
-#include <OGRE/OgreRenderOperation.h>
-#include <OGRE/OgreTextureManager.h>
-#include <OGRE/OgreHardwarePixelBuffer.h>
-#include <OGRE/OgrePixelFormat.h>
+#include <OgreSubEntity.h>
+#include <OgreRenderOperation.h>
+#include <OgreTextureManager.h>
+#include <OgreHardwarePixelBuffer.h>
+#include <OgrePixelFormat.h>
 
-// #include <rviz/display_context.h>
-// #include <rviz/frame_manager.h>
+// #include <rviz_common/display_context.hpp>
+// #include <rviz_common/frame_manager_iface.hpp>
 
 #include <limits>
 #include <stdint.h>
@@ -42,7 +42,7 @@ namespace rviz_mesh_plugin
   }
 
   TexturedMeshVisual::TexturedMeshVisual(
-    rviz::DisplayContext* context,
+    rviz_common::DisplayContext* context,
       size_t displayID,
       size_t meshID,
       size_t randomID)
@@ -436,7 +436,7 @@ void TexturedMeshVisual::updateNormals(float ScalingFactor)
   m_normalsScalingFactor = ScalingFactor;
 }
 
-void TexturedMeshVisual::enteringGeneralTriangleMesh(const mesh_msgs::MeshGeometry& mesh)
+void TexturedMeshVisual::enteringGeneralTriangleMesh(const mesh_msgs::msg::MeshGeometry& mesh)
 {
 
   std::stringstream sstm;
@@ -491,8 +491,8 @@ void TexturedMeshVisual::enteringGeneralTriangleMesh(const mesh_msgs::MeshGeomet
 }
 
 void TexturedMeshVisual::enteringColoredTriangleMesh(
-  const mesh_msgs::MeshGeometry& mesh,
-  const mesh_msgs::MeshVertexColors& vertexColors)
+  const mesh_msgs::msg::MeshGeometry& mesh,
+  const mesh_msgs::msg::MeshVertexColors& vertexColors)
 {
 
   if (m_meshGeneralMaterial.isNull())
@@ -554,8 +554,8 @@ void TexturedMeshVisual::enteringColoredTriangleMesh(
 }
 
 void TexturedMeshVisual::enteringTriangleMeshWithVertexCosts(
-  const mesh_msgs::MeshGeometry& mesh,
-  const mesh_msgs::MeshVertexCosts& vertexCosts,
+  const mesh_msgs::msg::MeshGeometry& mesh,
+  const mesh_msgs::msg::MeshVertexCosts& vertexCosts,
   int costColorType
 )
 {
@@ -573,8 +573,8 @@ void TexturedMeshVisual::enteringTriangleMeshWithVertexCosts(
 }
 
 void TexturedMeshVisual::enteringTriangleMeshWithVertexCosts(
-  const mesh_msgs::MeshGeometry& mesh,
-  const mesh_msgs::MeshVertexCosts& vertexCosts,
+  const mesh_msgs::msg::MeshGeometry& mesh,
+  const mesh_msgs::msg::MeshVertexCosts& vertexCosts,
   int costColorType,
   float minCost,
   float maxCost
@@ -647,8 +647,8 @@ void TexturedMeshVisual::enteringTriangleMeshWithVertexCosts(
 }
 
 void TexturedMeshVisual::enteringTexturedTriangleMesh(
-    const mesh_msgs::MeshGeometry& mesh,
-    const mesh_msgs::MeshMaterials& meshMaterials
+    const mesh_msgs::msg::MeshGeometry& mesh,
+    const mesh_msgs::msg::MeshMaterials& meshMaterials
 )
 {
   size_t clusterCounter = meshMaterials.clusters.size();
@@ -675,10 +675,10 @@ void TexturedMeshVisual::enteringTexturedTriangleMesh(
   for (size_t clusterIndex = 0; clusterIndex < clusterCounter; clusterIndex++)
   {
 
-    mesh_msgs::MeshFaceCluster cluster = meshMaterials.clusters[clusterIndex];
+    mesh_msgs::msg::MeshFaceCluster cluster = meshMaterials.clusters[clusterIndex];
 
     uint32_t materialIndex = meshMaterials.cluster_materials[clusterIndex];
-    mesh_msgs::MeshMaterial material = meshMaterials.materials[materialIndex];
+    mesh_msgs::msg::MeshMaterial material = meshMaterials.materials[materialIndex];
     bool hasTexture = material.has_texture;
 
 
@@ -822,7 +822,7 @@ void TexturedMeshVisual::enteringTexturedTriangleMesh(
   m_noTexCluMesh->end();
 }
 
-void TexturedMeshVisual::enteringNormals(const mesh_msgs::MeshGeometry& mesh)
+void TexturedMeshVisual::enteringNormals(const mesh_msgs::msg::MeshGeometry& mesh)
 {
 
   if (!m_vertex_normals_enabled)
@@ -858,12 +858,12 @@ void TexturedMeshVisual::enteringNormals(const mesh_msgs::MeshGeometry& mesh)
 
 }
 
-bool TexturedMeshVisual::setGeometry(const mesh_msgs::MeshGeometryStamped::ConstPtr& meshMsg)
+bool TexturedMeshVisual::setGeometry(const mesh_msgs::msg::MeshGeometryStamped::ConstPtr& meshMsg)
 {
   reset();
 
   // for a better legibility of the code
-  const mesh_msgs::MeshGeometry& mesh = meshMsg->mesh_geometry;
+  const mesh_msgs::msg::MeshGeometry& mesh = meshMsg->mesh_geometry;
   m_meshMsg = meshMsg->mesh_geometry;
   m_meshUuid = meshMsg->uuid;
 
@@ -924,7 +924,7 @@ bool TexturedMeshVisual::setGeometry(const mesh_msgs::MeshGeometryStamped::Const
   return true;
 }
 
-bool TexturedMeshVisual::setVertexColors(const mesh_msgs::MeshVertexColorsStamped::ConstPtr& vertexColorsMsg)
+bool TexturedMeshVisual::setVertexColors(const mesh_msgs::msg::MeshVertexColorsStamped::ConstPtr& vertexColorsMsg)
 {
   //check if these MeshVertexColors belong to the current mesh and were not already loaded
   if(m_meshUuid != vertexColorsMsg->uuid)
@@ -939,7 +939,7 @@ bool TexturedMeshVisual::setVertexColors(const mesh_msgs::MeshVertexColorsStampe
     return false;
   }
 
-  const mesh_msgs::MeshVertexColors vertexColors = vertexColorsMsg->mesh_vertex_colors;
+  const mesh_msgs::msg::MeshVertexColors vertexColors = vertexColorsMsg->mesh_vertex_colors;
 
   // check if there are vertex colors for each vertex
   if (vertexColors.vertex_colors.size() == m_meshMsg.vertices.size())
@@ -961,7 +961,7 @@ bool TexturedMeshVisual::setVertexColors(const mesh_msgs::MeshVertexColorsStampe
 }
 
 bool TexturedMeshVisual::setVertexCosts(
-  const mesh_msgs::MeshVertexCostsStamped::ConstPtr& vertexCostsMsg,
+  const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr& vertexCostsMsg,
   int costColorType
 )
 {
@@ -972,7 +972,7 @@ bool TexturedMeshVisual::setVertexCosts(
     return false;
   }
 
-  const mesh_msgs::MeshVertexCosts vertexCosts = vertexCostsMsg->mesh_vertex_costs;
+  const mesh_msgs::msg::MeshVertexCosts vertexCosts = vertexCostsMsg->mesh_vertex_costs;
 
   // check if there are vertex costs for each vertex
   if (vertexCosts.costs.size() == m_meshMsg.vertices.size())
@@ -994,7 +994,7 @@ bool TexturedMeshVisual::setVertexCosts(
 }
 
 bool TexturedMeshVisual::setVertexCosts(
-  const mesh_msgs::MeshVertexCostsStamped::ConstPtr& vertexCostsMsg,
+  const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr& vertexCostsMsg,
   int costColorType,
   float minCost,
   float maxCost
@@ -1007,7 +1007,7 @@ bool TexturedMeshVisual::setVertexCosts(
     return false;
   }
 
-  const mesh_msgs::MeshVertexCosts vertexCosts = vertexCostsMsg->mesh_vertex_costs;
+  const mesh_msgs::msg::MeshVertexCosts vertexCosts = vertexCostsMsg->mesh_vertex_costs;
 
   // check if there are vertex costs for each vertex
   if (vertexCosts.costs.size() == m_meshMsg.vertices.size())
@@ -1028,7 +1028,7 @@ bool TexturedMeshVisual::setVertexCosts(
   return true;
 }
 
-bool TexturedMeshVisual::setMaterials(const mesh_msgs::MeshMaterialsStamped::ConstPtr& materialMsg)
+bool TexturedMeshVisual::setMaterials(const mesh_msgs::msg::MeshMaterialsStamped::ConstPtr& materialMsg)
 {
   //check if these MeshMaterials belong to the current mesh and were not already loaded
   if(m_meshUuid != materialMsg->uuid)
@@ -1043,7 +1043,7 @@ bool TexturedMeshVisual::setMaterials(const mesh_msgs::MeshMaterialsStamped::Con
     return false;
   }
 
-  mesh_msgs::MeshMaterials meshMaterials = materialMsg->mesh_materials;
+  mesh_msgs::msg::MeshMaterials meshMaterials = materialMsg->mesh_materials;
 
   // check if there is a material index for each cluster
   if (meshMaterials.clusters.size() == meshMaterials.cluster_materials.size())
@@ -1077,7 +1077,7 @@ bool TexturedMeshVisual::setMaterials(const mesh_msgs::MeshMaterialsStamped::Con
   return true;
 }
 
-bool TexturedMeshVisual::addTexture(const mesh_msgs::MeshTexture::ConstPtr& textureMsg)
+bool TexturedMeshVisual::addTexture(const mesh_msgs::msg::MeshTexture::ConstPtr& textureMsg)
 {
   if(m_meshUuid != textureMsg->uuid || m_materialsUuid != textureMsg->uuid)
   {

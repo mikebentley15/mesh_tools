@@ -44,6 +44,7 @@
 
 
 #include "mesh_goal_tool.h"
+#include <rclcpp/rclcpp.hpp>
 
 #include <pluginlib/class_list_macros.h>
 PLUGINLIB_EXPORT_CLASS( rviz_mesh_plugin::MeshGoalTool, rviz::Tool )

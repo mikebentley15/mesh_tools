@@ -51,7 +51,7 @@
 #ifndef TRIANGLEMESH_DISPLAY_H
 #define TRIANGLEMESH_DISPLAY_H
 
-#include <rviz/display.h>
+#include <rviz_common/display.hpp>
 
 #ifndef Q_MOC_RUN
 #include <message_filters/subscriber.h>
@@ -145,7 +145,7 @@ protected:
      * @brief Tests if messages are valid, calls processMessage().
      * @param meshMsg Message containing geometry information
      */
-    void incomingMessage(const mesh_msgs::TriangleMeshStamped::ConstPtr& meshMsg);
+    void incomingMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstPtr& meshMsg);
 
 
 private Q_SLOTS:
@@ -176,16 +176,16 @@ private:
      * @brief Sets data for trianglemesh_visual and updates the mesh.
      * @param meshMsg Message containing geometry information
      */
-    void processMessage(const mesh_msgs::TriangleMeshStamped::ConstPtr& meshMsg);
+    void processMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstPtr& meshMsg);
 
     /// Subscriber for meshMsg
-    message_filters::Subscriber<mesh_msgs::TriangleMeshStamped> m_meshSubscriber;
+    message_filters::Subscriber<mesh_msgs::msg::TriangleMeshStamped> m_meshSubscriber;
 
     /// Messagefilter for meshMsg
-    tf2_ros::MessageFilter<mesh_msgs::TriangleMeshStamped>* m_tfMeshFilter;
+    tf2_ros::MessageFilter<mesh_msgs::msg::TriangleMeshStamped>* m_tfMeshFilter;
 
     /// Synchronizer for meshMsgs
-    message_filters::Cache<mesh_msgs::TriangleMeshStamped>* m_synchronizer;
+    message_filters::Cache<mesh_msgs::msg::TriangleMeshStamped>* m_synchronizer;
 
     /// Counter for the received messages
     uint32_t m_messagesReceived;

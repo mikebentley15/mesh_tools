@@ -53,28 +53,28 @@
 #ifndef TEXTURED_MESH_VISUAL_H
 #define TEXTURED_MESH_VISUAL_H
 
-#include <mesh_msgs/MeshGeometryStamped.h>
-#include <mesh_msgs/MeshGeometry.h>
-#include <mesh_msgs/MeshVertexColorsStamped.h>
-#include <mesh_msgs/MeshVertexColors.h>
-#include <mesh_msgs/MeshVertexCostsStamped.h>
-#include <mesh_msgs/MeshVertexCosts.h>
-#include <mesh_msgs/MeshMaterialsStamped.h>
-#include <mesh_msgs/MeshMaterials.h>
-#include <mesh_msgs/MeshMaterial.h>
-#include <mesh_msgs/MeshTexture.h>
+#include <mesh_msgs/msg/mesh_geometry_stamped.hpp>
+#include <mesh_msgs/msg/mesh_geometry.hpp>
+#include <mesh_msgs/msg/mesh_vertex_colors_stamped.hpp>
+#include <mesh_msgs/msg/mesh_vertex_colors.hpp>
+#include <mesh_msgs/msg/mesh_vertex_costs_stamped.hpp>
+#include <mesh_msgs/msg/mesh_vertex_costs.hpp>
+#include <mesh_msgs/msg/mesh_materials_stamped.hpp>
+#include <mesh_msgs/msg/mesh_materials.hpp>
+#include <mesh_msgs/msg/mesh_material.hpp>
+#include <mesh_msgs/msg/mesh_texture.hpp>
 
-#include <sensor_msgs/Image.h>
+#include <sensor_msgs/msg/image.hpp>
 
-#include <rviz/display_context.h>
-#include <rviz/frame_manager.h>
+#include <rviz_common/display_context.hpp>
+#include <rviz_common/frame_manager_iface.hpp>
 
-#include <OGRE/OgreSceneNode.h>
-#include <OGRE/OgreSceneManager.h>
-#include <OGRE/OgreManualObject.h>
-#include <OGRE/OgreEntity.h>
-#include <OGRE/OgreMaterialManager.h>
-#include <OGRE/OgreColourValue.h>
+#include <OgreSceneNode.h>
+#include <OgreSceneManager.h>
+#include <OgreManualObject.h>
+#include <OgreEntity.h>
+#include <OgreMaterialManager.h>
+#include <OgreColourValue.h>
 
 namespace Ogre
 {
@@ -106,7 +106,7 @@ public:
      * @param randomID random number that will be used as part of the meshes UID
      */
     TexturedMeshVisual(
-      rviz::DisplayContext* context,
+      rviz_common::DisplayContext* context,
       size_t displayID,
       size_t meshID,
       size_t randomID
@@ -127,25 +127,25 @@ public:
      *
      * @param meshMsg         Message containing the mesh
      */
-    bool setGeometry(const mesh_msgs::MeshGeometryStamped::ConstPtr& meshMsg);
+    bool setGeometry(const mesh_msgs::msg::MeshGeometryStamped::ConstPtr& meshMsg);
 
     /**
      * @brief Extracts data from the ros-messages and creates a colored mesh.
      *
      * @param vertexColorsMsg Message containing the vertex color information
      */
-    bool setVertexColors(const mesh_msgs::MeshVertexColorsStamped::ConstPtr& vertexColorsMsg);
+    bool setVertexColors(const mesh_msgs::msg::MeshVertexColorsStamped::ConstPtr& vertexColorsMsg);
 
     /**
      * @brief Extracts data from the ros-messages and creates a colored mesh with colors calculated from vertex costs.
      *
      * @param vertexCostsMsg Message containing the vertex cost information
      */
-    bool setVertexCosts(const mesh_msgs::MeshVertexCostsStamped::ConstPtr& vertexCostsMsg, int costColorType);
+    bool setVertexCosts(const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr& vertexCostsMsg, int costColorType);
 
 
     bool setVertexCosts(
-        const mesh_msgs::MeshVertexCostsStamped::ConstPtr& vertexCostsMsg,
+        const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr& vertexCostsMsg,
         int costColorType,
         float minCost,
         float maxCost
@@ -156,14 +156,14 @@ public:
      *
      * @param materialMsg Message containing the material information
      */
-    bool setMaterials(const mesh_msgs::MeshMaterialsStamped::ConstPtr& materialMsg);
+    bool setMaterials(const mesh_msgs::msg::MeshMaterialsStamped::ConstPtr& materialMsg);
 
     /**
      * @brief Extracts data from the ros-messages and adds textures to the textured mesh.
      *
      * @param textureMsg Message containing the texture information
      */
-    bool addTexture(const mesh_msgs::MeshTexture::ConstPtr& textureMsg);
+    bool addTexture(const mesh_msgs::msg::MeshTexture::ConstPtr& textureMsg);
 
    /**
      * @brief Sets the pose of the coordinate frame the message refers to.
@@ -252,27 +252,27 @@ private:
 
     void showTextures(Ogre::Pass* pass);
 
-    void enteringGeneralTriangleMesh(const mesh_msgs::MeshGeometry& mesh);
+    void enteringGeneralTriangleMesh(const mesh_msgs::msg::MeshGeometry& mesh);
     void enteringColoredTriangleMesh(
-      const mesh_msgs::MeshGeometry& mesh,
-      const mesh_msgs::MeshVertexColors& vertexColors
+      const mesh_msgs::msg::MeshGeometry& mesh,
+      const mesh_msgs::msg::MeshVertexColors& vertexColors
     );
     void enteringTriangleMeshWithVertexCosts(
-      const mesh_msgs::MeshGeometry& mesh,
-      const mesh_msgs::MeshVertexCosts& vertexCosts,
+      const mesh_msgs::msg::MeshGeometry& mesh,
+      const mesh_msgs::msg::MeshVertexCosts& vertexCosts,
       int costColorType
     );
     void enteringTriangleMeshWithVertexCosts(
-      const mesh_msgs::MeshGeometry& mesh,
-      const mesh_msgs::MeshVertexCosts& vertexCosts,
+      const mesh_msgs::msg::MeshGeometry& mesh,
+      const mesh_msgs::msg::MeshVertexCosts& vertexCosts,
       int costColorType,
       float minCost,
       float maxCost
     );
-    void enteringTexturedTriangleMesh(const mesh_msgs::MeshGeometry& mesh,
-      const mesh_msgs::MeshMaterials& meshMaterials
+    void enteringTexturedTriangleMesh(const mesh_msgs::msg::MeshGeometry& mesh,
+      const mesh_msgs::msg::MeshMaterials& meshMaterials
     );
-    void enteringNormals(const mesh_msgs::MeshGeometry& mesh);
+    void enteringNormals(const mesh_msgs::msg::MeshGeometry& mesh);
 
     Ogre::PixelFormat getOgrePixelFormatFromRosString(std::string encoding);
 
@@ -299,7 +299,7 @@ private:
     Ogre::SceneNode* m_sceneNode;
 
     /// The context that contains the display information.
-    rviz::DisplayContext* m_displayContext;
+    rviz_common::DisplayContext* m_displayContext;
 
     /// First ID of the created mesh
     size_t m_prefix;
@@ -353,7 +353,7 @@ private:
     float m_normalsScalingFactor;
 
     /// Triangle Mesh contained in the given message
-    mesh_msgs::MeshGeometry m_meshMsg;
+    mesh_msgs::msg::MeshGeometry m_meshMsg;
 
     /// Uuid of the currently shown vertex colors
     std::string m_meshUuid;

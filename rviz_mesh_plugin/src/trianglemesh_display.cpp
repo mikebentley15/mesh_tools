@@ -48,20 +48,20 @@
  *    Nils Oesting
  */
 
-#include <OGRE/OgreSceneNode.h>
-#include <OGRE/OgreSceneManager.h>
+#include <OgreSceneNode.h>
+#include <OgreSceneManager.h>
 
-#include <tf/transform_listener.h>
+#include <tf2_ros/transform_listener.h>
 
-#include <rviz/visualization_manager.h>
-#include <rviz/frame_manager.h>
-#include <rviz/display_context.h>
-#include <rviz/properties/bool_property.h>
-#include <rviz/properties/color_property.h>
-#include <rviz/properties/float_property.h>
-#include <rviz/properties/int_property.h>
-#include <rviz/properties/ros_topic_property.h>
-#include <rviz/properties/enum_property.h>
+//#include <rviz_common/visualization_manager.h>
+#include <rviz_common/frame_manager_iface.hpp>
+#include <rviz_common/display_context.hpp>
+#include <rviz_common/properties/bool_property.hpp>
+#include <rviz_common/properties/color_property.hpp>
+#include <rviz_common/properties/float_property.hpp>
+#include <rviz_common/properties/int_property.hpp>
+#include <rviz_common/properties/ros_topic_property.hpp>
+#include <rviz_common/properties/enum_property.hpp>
 
 #include "trianglemesh_display.h"
 
@@ -69,7 +69,7 @@
 #include <boost/random/uniform_int.hpp>
 #include <boost/random/variate_generator.hpp>
 
-#include <ros/callback_queue.h>
+//#include <ros/callback_queue.h>
 
 namespace rviz_mesh_plugin
 {
@@ -316,7 +316,7 @@ void TriangleMeshDisplay::fixedFrameChanged()
     reset();
 }
 
-void TriangleMeshDisplay::incomingMessage(const mesh_msgs::TriangleMeshStamped::ConstPtr& meshMsg)
+void TriangleMeshDisplay::incomingMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstPtr& meshMsg)
 {
     m_messagesReceived++;
     setStatus(rviz::StatusProperty::Ok, "Topic", QString::number(m_messagesReceived) + " messages received");
@@ -371,7 +371,7 @@ void TriangleMeshDisplay::updateMesh()
     }
 }
 
-void TriangleMeshDisplay::processMessage(const mesh_msgs::TriangleMeshStamped::ConstPtr& meshMsg){
+void TriangleMeshDisplay::processMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstPtr& meshMsg){
     Ogre::Quaternion orientation;
     Ogre::Vector3 position;
 
@@ -408,5 +408,5 @@ void TriangleMeshDisplay::processMessage(const mesh_msgs::TriangleMeshStamped::C
 
 } // end namespace rviz_mesh_plugin
 
-#include <pluginlib/class_list_macros.h>
+#include <pluginlib/class_list_macros.hpp>
 PLUGINLIB_EXPORT_CLASS(rviz_mesh_plugin::TriangleMeshDisplay, rviz::Display)
