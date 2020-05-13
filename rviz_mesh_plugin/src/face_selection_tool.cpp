@@ -51,6 +51,7 @@
 #include "face_selection_tool.h"
 #include <rviz/properties/ros_topic_property.h>
 #include <rclcpp/rclcpp.hpp>
+#include <OgreTechnique.h>
 
 #include <pluginlib/class_list_macros.h>
 PLUGINLIB_EXPORT_CLASS( rviz_mesh_plugin::FaceSelectionTool, rviz::Tool )

@@ -5,6 +5,7 @@
 #include <OgreTextureManager.h>
 #include <OgreHardwarePixelBuffer.h>
 #include <OgrePixelFormat.h>
+#include <OgreTechnique.h>
 
 // #include <rviz_common/display_context.hpp>
 // #include <rviz_common/frame_manager_iface.hpp>
