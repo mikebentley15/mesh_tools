@@ -858,7 +858,7 @@ void TexturedMeshVisual::enteringNormals(const mesh_msgs::msg::MeshGeometry& mes
 
 }
 
-bool TexturedMeshVisual::setGeometry(const mesh_msgs::msg::MeshGeometryStamped::ConstPtr& meshMsg)
+bool TexturedMeshVisual::setGeometry(const mesh_msgs::msg::MeshGeometryStamped::ConstSharedPtr& meshMsg)
 {
   reset();
 
@@ -924,7 +924,7 @@ bool TexturedMeshVisual::setGeometry(const mesh_msgs::msg::MeshGeometryStamped::
   return true;
 }
 
-bool TexturedMeshVisual::setVertexColors(const mesh_msgs::msg::MeshVertexColorsStamped::ConstPtr& vertexColorsMsg)
+bool TexturedMeshVisual::setVertexColors(const mesh_msgs::msg::MeshVertexColorsStamped::ConstSharedPtr& vertexColorsMsg)
 {
   //check if these MeshVertexColors belong to the current mesh and were not already loaded
   if(m_meshUuid != vertexColorsMsg->uuid)
@@ -961,7 +961,7 @@ bool TexturedMeshVisual::setVertexColors(const mesh_msgs::msg::MeshVertexColorsS
 }
 
 bool TexturedMeshVisual::setVertexCosts(
-  const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr& vertexCostsMsg,
+  const mesh_msgs::msg::MeshVertexCostsStamped::ConstSharedPtr& vertexCostsMsg,
   int costColorType
 )
 {
@@ -994,7 +994,7 @@ bool TexturedMeshVisual::setVertexCosts(
 }
 
 bool TexturedMeshVisual::setVertexCosts(
-  const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr& vertexCostsMsg,
+  const mesh_msgs::msg::MeshVertexCostsStamped::ConstSharedPtr& vertexCostsMsg,
   int costColorType,
   float minCost,
   float maxCost
@@ -1028,7 +1028,7 @@ bool TexturedMeshVisual::setVertexCosts(
   return true;
 }
 
-bool TexturedMeshVisual::setMaterials(const mesh_msgs::msg::MeshMaterialsStamped::ConstPtr& materialMsg)
+bool TexturedMeshVisual::setMaterials(const mesh_msgs::msg::MeshMaterialsStamped::ConstSharedPtr& materialMsg)
 {
   //check if these MeshMaterials belong to the current mesh and were not already loaded
   if(m_meshUuid != materialMsg->uuid)
@@ -1077,7 +1077,7 @@ bool TexturedMeshVisual::setMaterials(const mesh_msgs::msg::MeshMaterialsStamped
   return true;
 }
 
-bool TexturedMeshVisual::addTexture(const mesh_msgs::msg::MeshTexture::ConstPtr& textureMsg)
+bool TexturedMeshVisual::addTexture(const mesh_msgs::msg::MeshTexture::ConstSharedPtr& textureMsg)
 {
   if(m_meshUuid != textureMsg->uuid || m_materialsUuid != textureMsg->uuid)
   {

@@ -164,19 +164,19 @@ protected:
      * @brief Handler for incoming geometry messages. Validate data and update mesh
      * @param meshMsg The geometry
      */
-    void incomingGeometry(const mesh_msgs::msg::MeshGeometryStamped::ConstPtr& meshMsg);
+    void incomingGeometry(const mesh_msgs::msg::MeshGeometryStamped::ConstSharedPtr& meshMsg);
 
     /**
      * @brief Handler for incoming vertex color messages. Validate data and update mesh
      * @param colorsStamped The vertex colors
      */
-    void incomingVertexColors(const mesh_msgs::msg::MeshVertexColorsStamped::ConstPtr& colorsStamped);
+    void incomingVertexColors(const mesh_msgs::msg::MeshVertexColorsStamped::ConstSharedPtr& colorsStamped);
 
     /**
      * @brief Handler for incoming vertex cost messages. Validate data and update mesh
      * @param costsStamped The vertex costs
      */
-    void incomingVertexCosts(const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr& costsStamped);
+    void incomingVertexCosts(const mesh_msgs::msg::MeshVertexCostsStamped::ConstSharedPtr& costsStamped);
 
 
 private Q_SLOTS:
@@ -239,13 +239,13 @@ private:
      * @brief Cache function for vertex cost messages.
      * @param costsStamped The vertex cost message
      */
-    void cacheVertexCosts(const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr costsStamped);
+    void cacheVertexCosts(const mesh_msgs::msg::MeshVertexCostsStamped::ConstSharedPtr costsStamped);
 
     /**
      * @brief Sets data for trianglemesh_visual and updates the mesh.
      * @param meshMsg Message containing geometry information
      */
-    void processMessage(const mesh_msgs::msg::MeshGeometryStamped::ConstPtr& meshMsg);
+    void processMessage(const mesh_msgs::msg::MeshGeometryStamped::ConstSharedPtr& meshMsg);
 
     /**
      * @brief Requests vertex colors from the specified service
@@ -399,7 +399,7 @@ private:
     rviz::FloatProperty* m_costUpperLimit;
 
     /// Cache for received vertex cost messages
-    std::map<std::string, const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr> m_costCache;
+    std::map<std::string, const mesh_msgs::msg::MeshVertexCostsStamped::ConstSharedPtr> m_costCache;
 
 };
 } // End namespace rviz_mesh_plugin

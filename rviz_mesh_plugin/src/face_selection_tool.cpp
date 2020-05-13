@@ -167,7 +167,7 @@ void FaceSelectionTool::initNode()
 }
 
 
-void FaceSelectionTool::meshCb(const mesh_msgs::TriangleMeshStamped::ConstPtr& mesh)
+void FaceSelectionTool::meshCb(const mesh_msgs::TriangleMeshStamped::ConstSharedPtr& mesh)
 {
   if(!has_mesh)
   {

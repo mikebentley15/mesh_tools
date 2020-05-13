@@ -112,7 +112,7 @@ public:
      *
      * @param meshMsg         Message containing the mesh
      */
-    void setMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstPtr& meshMsg);
+    void setMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstSharedPtr& meshMsg);
 
 
    /**

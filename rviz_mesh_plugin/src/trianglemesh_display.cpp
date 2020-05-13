@@ -316,7 +316,7 @@ void TriangleMeshDisplay::fixedFrameChanged()
     reset();
 }
 
-void TriangleMeshDisplay::incomingMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstPtr& meshMsg)
+void TriangleMeshDisplay::incomingMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstSharedPtr& meshMsg)
 {
     m_messagesReceived++;
     setStatus(rviz::StatusProperty::Ok, "Topic", QString::number(m_messagesReceived) + " messages received");
@@ -371,7 +371,7 @@ void TriangleMeshDisplay::updateMesh()
     }
 }
 
-void TriangleMeshDisplay::processMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstPtr& meshMsg){
+void TriangleMeshDisplay::processMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstSharedPtr& meshMsg){
     Ogre::Quaternion orientation;
     Ogre::Vector3 position;
 

@@ -493,7 +493,7 @@ void TriangleMeshVisual::enteringNormals(const mesh_msgs::msg::TriangleMesh& mes
 
 }
 
-void TriangleMeshVisual::setMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstPtr& mesh_msg)
+void TriangleMeshVisual::setMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstSharedPtr& mesh_msg)
 {
   reset();
 

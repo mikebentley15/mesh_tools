@@ -127,25 +127,25 @@ public:
      *
      * @param meshMsg         Message containing the mesh
      */
-    bool setGeometry(const mesh_msgs::msg::MeshGeometryStamped::ConstPtr& meshMsg);
+    bool setGeometry(const mesh_msgs::msg::MeshGeometryStamped::ConstSharedPtr& meshMsg);
 
     /**
      * @brief Extracts data from the ros-messages and creates a colored mesh.
      *
      * @param vertexColorsMsg Message containing the vertex color information
      */
-    bool setVertexColors(const mesh_msgs::msg::MeshVertexColorsStamped::ConstPtr& vertexColorsMsg);
+    bool setVertexColors(const mesh_msgs::msg::MeshVertexColorsStamped::ConstSharedPtr& vertexColorsMsg);
 
     /**
      * @brief Extracts data from the ros-messages and creates a colored mesh with colors calculated from vertex costs.
      *
      * @param vertexCostsMsg Message containing the vertex cost information
      */
-    bool setVertexCosts(const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr& vertexCostsMsg, int costColorType);
+    bool setVertexCosts(const mesh_msgs::msg::MeshVertexCostsStamped::ConstSharedPtr& vertexCostsMsg, int costColorType);
 
 
     bool setVertexCosts(
-        const mesh_msgs::msg::MeshVertexCostsStamped::ConstPtr& vertexCostsMsg,
+        const mesh_msgs::msg::MeshVertexCostsStamped::ConstSharedPtr& vertexCostsMsg,
         int costColorType,
         float minCost,
         float maxCost
@@ -156,14 +156,14 @@ public:
      *
      * @param materialMsg Message containing the material information
      */
-    bool setMaterials(const mesh_msgs::msg::MeshMaterialsStamped::ConstPtr& materialMsg);
+    bool setMaterials(const mesh_msgs::msg::MeshMaterialsStamped::ConstSharedPtr& materialMsg);
 
     /**
      * @brief Extracts data from the ros-messages and adds textures to the textured mesh.
      *
      * @param textureMsg Message containing the texture information
      */
-    bool addTexture(const mesh_msgs::msg::MeshTexture::ConstPtr& textureMsg);
+    bool addTexture(const mesh_msgs::msg::MeshTexture::ConstSharedPtr& textureMsg);
 
    /**
      * @brief Sets the pose of the coordinate frame the message refers to.

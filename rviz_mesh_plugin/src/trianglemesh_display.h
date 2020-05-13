@@ -145,7 +145,7 @@ protected:
      * @brief Tests if messages are valid, calls processMessage().
      * @param meshMsg Message containing geometry information
      */
-    void incomingMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstPtr& meshMsg);
+    void incomingMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstSharedPtr& meshMsg);
 
 
 private Q_SLOTS:
@@ -176,7 +176,7 @@ private:
      * @brief Sets data for trianglemesh_visual and updates the mesh.
      * @param meshMsg Message containing geometry information
      */
-    void processMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstPtr& meshMsg);
+    void processMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstSharedPtr& meshMsg);
 
     /// Subscriber for meshMsg
     message_filters::Subscriber<mesh_msgs::msg::TriangleMeshStamped> m_meshSubscriber;

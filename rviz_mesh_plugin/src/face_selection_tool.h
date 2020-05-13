@@ -148,7 +148,7 @@ private:
 
     void updateSelectionMesh();
 
-    void meshCb(const mesh_msgs::TriangleMeshStamped::ConstPtr& mesh);
+    void meshCb(const mesh_msgs::TriangleMeshStamped::ConstSharedPtr& mesh);
 
     void setTransform(const mesh_msgs::TriangleMeshStamped &mesh);
     void setReferenceMesh( mesh_msgs::TriangleMesh mesh);
