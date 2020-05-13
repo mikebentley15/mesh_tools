@@ -162,14 +162,14 @@ void FaceSelectionTool::initOgre()
 void FaceSelectionTool::initNode()
 {
   mesh_sub = n.subscribe( "segment_mesh", 1, &FaceSelectionTool::meshCb, this);
-  mesh_pub = n.advertise<mesh_msgs::TriangleMeshStamped>( "segmented_mesh", 1, true);
+  mesh_pub = n.advertise<mesh_msgs::msg::TriangleMeshStamped>( "segmented_mesh", 1, true);
 
   id_pub = n.advertise<std_msgs::Int32>( "selected_face_id", 1, true);
   goal_pub = n.advertise<geometry_msgs::PoseStamped>( "goal", 1, true );
 }
 
 
-void FaceSelectionTool::meshCb(const mesh_msgs::TriangleMeshStamped::ConstSharedPtr& mesh)
+void FaceSelectionTool::meshCb(const mesh_msgs::msg::TriangleMeshStamped::ConstSharedPtr& mesh)
 {
   if(!has_mesh)
   {
@@ -187,7 +187,7 @@ void FaceSelectionTool::deactivate()
 {
 }
 
-void FaceSelectionTool::setTransform(const mesh_msgs::TriangleMeshStamped &mesh){
+void FaceSelectionTool::setTransform(const mesh_msgs::msg::TriangleMeshStamped &mesh){
     Ogre::Quaternion orientation;
     Ogre::Vector3 position;
 
@@ -204,7 +204,7 @@ void FaceSelectionTool::setTransform(const mesh_msgs::TriangleMeshStamped &mesh)
     scene_node->setOrientation(orientation);
 }
 
-void FaceSelectionTool::setReferenceMesh( mesh_msgs::TriangleMesh mesh )
+void FaceSelectionTool::setReferenceMesh( mesh_msgs::msg::TriangleMesh mesh )
 {
   clearSelection();
   reference_mesh->begin("ReferenceMeshMaterial2", Ogre::RenderOperation::OT_TRIANGLE_LIST);
@@ -222,7 +222,7 @@ void FaceSelectionTool::setReferenceMesh( mesh_msgs::TriangleMesh mesh )
   reference_mesh->end();
 }
 
-void FaceSelectionTool::getSegmentMesh(mesh_msgs::TriangleMesh &mesh) //size_t goalSection, std::string regionLabel
+void FaceSelectionTool::getSegmentMesh(mesh_msgs::msg::TriangleMesh &mesh) //size_t goalSection, std::string regionLabel
 {
   size_t numSections = segment_mesh->getNumSections();
   //ROS_INFO("Mesh has %d sections, we only take the first", numSections);
@@ -238,7 +238,7 @@ void FaceSelectionTool::getSegmentMesh(mesh_msgs::TriangleMesh &mesh) //size_t g
     //ROS_INFO("#vert %d #ind %d", vertexCount, indexCount );
 
     geometry_msgs::Point vertex;
-    mesh_msgs::TriangleIndices index;
+    mesh_msgs::msg::TriangleIndices index;
     for ( size_t i = 0; i < vertexCount; i++ )
     {
       vertex.x = vertices[i].x;
@@ -325,7 +325,7 @@ int FaceSelectionTool::processKeyEvent(QKeyEvent *event, rviz::RenderPanel* pane
     }
   }
     /*
-    mesh_msgs::TriangleMeshStamped mesh;
+    mesh_msgs::msg::TriangleMeshStamped mesh;
     getSegmentMesh(mesh.mesh);
     mesh.header.frame_id = "world";
     mesh.header.stamp = rclcpp::Time::now();

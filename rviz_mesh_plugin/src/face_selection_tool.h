@@ -135,7 +135,7 @@ public:
   void clearSelection();
 
   bool areFacesSelected();
-  void getSelectedFaces(size_t goalSection, std::string regionLabel, mesh_msgs::TriangleMesh &meshMsg);
+  void getSelectedFaces(size_t goalSection, std::string regionLabel, mesh_msgs::msg::TriangleMesh &meshMsg);
 
 
 private Q_SLOTS:
@@ -148,11 +148,11 @@ private:
 
     void updateSelectionMesh();
 
-    void meshCb(const mesh_msgs::TriangleMeshStamped::ConstSharedPtr& mesh);
+    void meshCb(const mesh_msgs::msg::TriangleMeshStamped::ConstSharedPtr& mesh);
 
-    void setTransform(const mesh_msgs::TriangleMeshStamped &mesh);
-    void setReferenceMesh( mesh_msgs::TriangleMesh mesh);
-    void getSegmentMesh( mesh_msgs::TriangleMesh& mesh);
+    void setTransform(const mesh_msgs::msg::TriangleMeshStamped &mesh);
+    void setReferenceMesh( mesh_msgs::msg::TriangleMesh mesh);
+    void getSegmentMesh( mesh_msgs::msg::TriangleMesh& mesh);
 
     void selectSingleFace(rviz::ViewportMouseEvent& event);
     void deselectSingleFace(rviz::ViewportMouseEvent& event);

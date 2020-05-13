@@ -217,7 +217,7 @@ TriangleMeshDisplay::~TriangleMeshDisplay()
 
 void TriangleMeshDisplay::onInitialize()
 {
-    m_tfMeshFilter = new tf2_ros::MessageFilter<mesh_msgs::TriangleMeshStamped>(
+    m_tfMeshFilter = new tf2_ros::MessageFilter<mesh_msgs::msg::TriangleMeshStamped>(
         *rviz::Display::context_->getTF2BufferPtr(),
         rviz::Display::fixed_frame_.toStdString(),
         1,
@@ -278,7 +278,7 @@ void TriangleMeshDisplay::subscribe()
         // Geometry & Texture & PointNormals
         m_meshBufferSize->show();
 
-        m_synchronizer = new message_filters::Cache<mesh_msgs::TriangleMeshStamped>(
+        m_synchronizer = new message_filters::Cache<mesh_msgs::msg::TriangleMeshStamped>(
             m_meshSubscriber, 10
         );
 
