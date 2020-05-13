@@ -57,7 +57,7 @@ namespace rviz_mesh_plugin
     m_normalsScalingFactor(1)
   {
 
-    ROS_INFO("Creating TexturedMeshVisual %lu_TexturedMesh_%lu_%lu",m_prefix, m_postfix, m_random);
+    //ROS_INFO("Creating TexturedMeshVisual %lu_TexturedMesh_%lu_%lu",m_prefix, m_postfix, m_random);
 
     // get or create the scene node
     Ogre::SceneManager* sceneManager = m_displayContext->getSceneManager();
@@ -111,7 +111,7 @@ namespace rviz_mesh_plugin
 
   TexturedMeshVisual::~TexturedMeshVisual()
   {
-    ROS_INFO("Destroying TexturedMeshVisual %lu_TexturedMesh_%lu_%lu",m_prefix, m_postfix, m_random);
+    //ROS_INFO("Destroying TexturedMeshVisual %lu_TexturedMesh_%lu_%lu",m_prefix, m_postfix, m_random);
 
     reset();
 
@@ -143,7 +143,7 @@ namespace rviz_mesh_plugin
   void TexturedMeshVisual::reset()
   {
 
-    ROS_INFO("Resetting TexturedMeshVisual %lu_TexturedMesh_%lu_%lu",m_prefix, m_postfix, m_random);
+    //ROS_INFO("Resetting TexturedMeshVisual %lu_TexturedMesh_%lu_%lu",m_prefix, m_postfix, m_random);
 
 
     std::stringstream sstm;
@@ -706,7 +706,7 @@ void TexturedMeshVisual::enteringTexturedTriangleMesh(
       // if the image was only default constructed, in which case its width will be 0
       if (m_images.size() < textureIndex + 1 || m_images[textureIndex].getWidth() == 0)
       {
-        ROS_INFO("Texture with index %lu not loaded yet", textureIndex);
+        //ROS_INFO("Texture with index %lu not loaded yet", textureIndex);
       }
       else
       {
@@ -896,7 +896,7 @@ bool TexturedMeshVisual::setGeometry(const mesh_msgs::msg::MeshGeometryStamped::
   // check if there are vertex normals for each vertex
   if (mesh.vertex_normals.size() == mesh.vertices.size())
   {
-    ROS_INFO("Received %lu vertex normals.", mesh.vertex_normals.size());
+    //ROS_INFO("Received %lu vertex normals.", mesh.vertex_normals.size());
     m_vertex_normals_enabled = true;
   }
   else if (mesh.vertex_normals.size() > 0)
@@ -944,7 +944,7 @@ bool TexturedMeshVisual::setVertexColors(const mesh_msgs::msg::MeshVertexColorsS
   // check if there are vertex colors for each vertex
   if (vertexColors.vertex_colors.size() == m_meshMsg.vertices.size())
   {
-    ROS_INFO("Received %lu vertex colors.", vertexColors.vertex_colors.size());
+    //ROS_INFO("Received %lu vertex colors.", vertexColors.vertex_colors.size());
     m_vertex_colors_enabled = true;
   }
   else
@@ -977,7 +977,7 @@ bool TexturedMeshVisual::setVertexCosts(
   // check if there are vertex costs for each vertex
   if (vertexCosts.costs.size() == m_meshMsg.vertices.size())
   {
-    ROS_INFO("Received %lu vertex costs.", vertexCosts.costs.size());
+    //ROS_INFO("Received %lu vertex costs.", vertexCosts.costs.size());
     m_vertex_costs_enabled = true;
   }
   else
@@ -1012,7 +1012,7 @@ bool TexturedMeshVisual::setVertexCosts(
   // check if there are vertex costs for each vertex
   if (vertexCosts.costs.size() == m_meshMsg.vertices.size())
   {
-    ROS_INFO("Received %lu vertex costs.", vertexCosts.costs.size());
+    //ROS_INFO("Received %lu vertex costs.", vertexCosts.costs.size());
     m_vertex_costs_enabled = true;
   }
   else
@@ -1048,7 +1048,7 @@ bool TexturedMeshVisual::setMaterials(const mesh_msgs::msg::MeshMaterialsStamped
   // check if there is a material index for each cluster
   if (meshMaterials.clusters.size() == meshMaterials.cluster_materials.size())
   {
-    ROS_INFO("Received %lu clusters.", meshMaterials.clusters.size());
+    //ROS_INFO("Received %lu clusters.", meshMaterials.clusters.size());
     m_materials_enabled = true; // enable textures
   }
   else
@@ -1061,7 +1061,7 @@ bool TexturedMeshVisual::setMaterials(const mesh_msgs::msg::MeshMaterialsStamped
   // check if there are texture coords for each vertex
   if (meshMaterials.vertex_tex_coords.size() == m_meshMsg.vertices.size())
   {
-    ROS_INFO("Received %lu texture coords.", meshMaterials.vertex_tex_coords.size());
+    //ROS_INFO("Received %lu texture coords.", meshMaterials.vertex_tex_coords.size());
     m_texture_coords_enabled = true; // enable texture coords
     m_textures_enabled = true;
   }

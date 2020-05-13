@@ -94,7 +94,7 @@ FaceSelectionTool::~FaceSelectionTool()
 
 void FaceSelectionTool::updateTopic(){
   //if(mesh_topic->getTopic() != QString::fromStdString(mesh_sub.getTopic())){
-    ROS_INFO("updated topic");
+    //ROS_INFO("updated topic");
     mesh_sub.shutdown();
     mesh_sub = n.subscribe(mesh_topic->getTopic().toStdString(), 1, &FaceSelectionTool::meshCb, this);
     reference_mesh->clear();
@@ -107,7 +107,7 @@ void FaceSelectionTool::updateTopic(){
 // context_ are set.  It should be called only once per instantiation.
 void FaceSelectionTool::onInitialize()
 {
-  ROS_INFO("Call Init");
+  //ROS_INFO("Call Init");
 
   initNode();
   initOgre();
@@ -314,12 +314,12 @@ int FaceSelectionTool::processKeyEvent(QKeyEvent *event, rviz::RenderPanel* pane
 {
   if (event->key() == Qt::Key_K)
   {
-     ROS_INFO("IDS..");
+     //ROS_INFO("IDS..");
      for (std::map<size_t, std::vector<size_t> >::iterator it = m_goalFaces.begin(); it != m_goalFaces.end(); it++)
      {
       for (size_t j = 0; j < it->second.size(); j++)
       {
-        ROS_INFO("ID: %lu", it->second[j]);
+        //ROS_INFO("ID: %lu", it->second[j]);
       }
     }
   }

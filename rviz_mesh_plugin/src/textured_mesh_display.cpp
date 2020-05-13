@@ -383,7 +383,8 @@ void TexturedMeshDisplay::initialServiceCall()
     {
         std::string uuid = (std::string)srv_uuid.response.uuid;
 
-        ROS_INFO_STREAM("Initial data available for UUID=" << uuid);
+        //ROS_INFO_STREAM("Initial data available for UUID=" << uuid);
+        RCLCPP_INFO_STREAM(n->get_logger(), "Initial data available for UUID=" << uuid);
 
         ros::ServiceClient m_geometryClient = n.serviceClient<mesh_msgs::msg::GetGeometry>("get_geometry");
 
@@ -391,19 +392,22 @@ void TexturedMeshDisplay::initialServiceCall()
         srv_geometry.request.uuid = uuid;
         if (m_geometryClient.call(srv_geometry))
         {
-            ROS_INFO_STREAM("Found geometry for UUID=" << uuid);
+            //ROS_INFO_STREAM("Found geometry for UUID=" << uuid);
+            RCLCPP_INFO_STREAM(n->get_logger(), "Found geometry for UUID=" << uuid);
             mesh_msgs::msg::MeshGeometryStamped::ConstSharedPtr geometry
                 = boost::make_shared<const mesh_msgs::msg::MeshGeometryStamped>(srv_geometry.response.mesh_geometry_stamped);
             processMessage(geometry);
         }
         else
         {
-            ROS_INFO_STREAM("Could not load geometry. Waiting for callback to trigger ... ");
+            //ROS_INFO_STREAM("Could not load geometry. Waiting for callback to trigger ... ");
+            RCLCPP_INFO(n->get_logger(), "Could not load geometry. Waiting for callback to trigger ... ");
         }
     }
     else
     {
-        ROS_INFO("No initial data available, waiting for callback to trigger ...");
+        //ROS_INFO("No initial data available, waiting for callback to trigger ...");
+        RCLCPP_INFO(n->get_logger(), "No initial data available, waiting for callback to trigger ...");
     }
 }
 
@@ -558,7 +562,7 @@ void TexturedMeshDisplay::cacheVertexCosts(
     const mesh_msgs::msg::MeshVertexCostsStamped::ConstSharedPtr costsStamped
 )
 {
-    ROS_INFO_STREAM("Cache vertex cost map '" << costsStamped->type << "' for UUID " << costsStamped->uuid);
+    //ROS_INFO_STREAM("Cache vertex cost map '" << costsStamped->type << "' for UUID " << costsStamped->uuid);
 
     // insert into cache
     std::pair<std::map<std::string, const mesh_msgs::msg::MeshVertexCostsStamped::ConstSharedPtr>::iterator, bool> ret =
@@ -566,7 +570,7 @@ void TexturedMeshDisplay::cacheVertexCosts(
             std::pair<std::string, const mesh_msgs::msg::MeshVertexCostsStamped::ConstSharedPtr>(costsStamped->type, costsStamped));
     if(ret.second)
     {
-        ROS_INFO_STREAM("The cost layer \"" << costsStamped->type << "\" has been added.");
+        //ROS_INFO_STREAM("The cost layer \"" << costsStamped->type << "\" has been added.");
         m_selectVertexCostMap->addOptionStd(costsStamped->type, m_selectVertexCostMap->numChildren());
     }
     else
@@ -575,7 +579,7 @@ void TexturedMeshDisplay::cacheVertexCosts(
         m_costCache.erase(ret.first);
         m_costCache.insert(
             std::pair<std::string, const mesh_msgs::msg::MeshVertexCostsStamped::ConstSharedPtr>(costsStamped->type, costsStamped));
-        ROS_INFO_STREAM("The cost layer \"" << costsStamped->type << "\" has been updated.");
+        //ROS_INFO_STREAM("The cost layer \"" << costsStamped->type << "\" has been updated.");
     }
 
 }
@@ -850,7 +854,7 @@ void TexturedMeshDisplay::requestVertexColors(boost::shared_ptr<TexturedMeshVisu
     srv.request.uuid = uuid;
     if (m_vertexColorClient.call(srv))
     {
-        ROS_INFO("Successful vertex colors service call!");
+        //ROS_INFO("Successful vertex colors service call!");
         mesh_msgs::msg::MeshVertexColorsStamped::ConstSharedPtr meshVertexColors =
             boost::make_shared<const mesh_msgs::msg::MeshVertexColorsStamped>(srv.response.mesh_vertex_colors_stamped);
 
@@ -858,7 +862,7 @@ void TexturedMeshDisplay::requestVertexColors(boost::shared_ptr<TexturedMeshVisu
     }
     else
     {
-        ROS_INFO("Failed vertex colors service call!");
+        //ROS_INFO("Failed vertex colors service call!");
     }
 }
 
@@ -868,7 +872,7 @@ void TexturedMeshDisplay::requestMaterials(boost::shared_ptr<TexturedMeshVisual>
     srv.request.uuid = uuid;
     if (m_materialsClient.call(srv))
     {
-        ROS_INFO("Successful materials service call!");
+        //ROS_INFO("Successful materials service call!");
 
         mesh_msgs::msg::MeshMaterialsStamped::ConstSharedPtr meshMaterialsStamped =
             boost::make_shared<const mesh_msgs::msg::MeshMaterialsStamped>(srv.response.mesh_materials_stamped);
@@ -885,7 +889,7 @@ void TexturedMeshDisplay::requestMaterials(boost::shared_ptr<TexturedMeshVisual>
                 texSrv.request.texture_index = material.texture_index;
                 if (m_textureClient.call(texSrv))
                 {
-                    ROS_INFO("Successful texture service call with index %d!", material.texture_index);
+                    //ROS_INFO("Successful texture service call with index %d!", material.texture_index);
                     mesh_msgs::msg::MeshTexture::ConstSharedPtr texture =
                         boost::make_shared<const mesh_msgs::msg::MeshTexture>(texSrv.response.texture);
 
@@ -893,14 +897,14 @@ void TexturedMeshDisplay::requestMaterials(boost::shared_ptr<TexturedMeshVisual>
                 }
                 else
                 {
-                    ROS_INFO("Failed texture service call with index %d!", material.texture_index);
+                    //ROS_INFO("Failed texture service call with index %d!", material.texture_index);
                 }
             }
         }
     }
     else
     {
-        ROS_INFO("Failed materials service call!");
+        //ROS_INFO("Failed materials service call!");
     }
 }
 

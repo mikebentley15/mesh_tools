@@ -31,7 +31,7 @@ namespace rviz_mesh_plugin
     m_normalsScalingFactor(1)
   {
 
-    ROS_INFO("Creating TriangleMeshVisual %lu_TriangleMesh_%lu_%lu",m_prefix, m_postfix, m_random);
+    //ROS_INFO("Creating TriangleMeshVisual %lu_TriangleMesh_%lu_%lu",m_prefix, m_postfix, m_random);
 
     // get or create the scene node
     Ogre::SceneManager* sceneManager = m_displayContext->getSceneManager();
@@ -58,7 +58,7 @@ namespace rviz_mesh_plugin
 
   TriangleMeshVisual::~TriangleMeshVisual()
   {
-    ROS_INFO("Destroying TriangleMeshVisual %lu_TriangleMesh_%lu_%lu",m_prefix, m_postfix, m_random);
+    //ROS_INFO("Destroying TriangleMeshVisual %lu_TriangleMesh_%lu_%lu",m_prefix, m_postfix, m_random);
 
     std::stringstream sstm;
     reset();
@@ -72,7 +72,7 @@ namespace rviz_mesh_plugin
   void TriangleMeshVisual::reset()
   {
 
-    ROS_INFO("Resetting TriangleMeshVisual %lu_TriangleMesh_%lu_%lu",m_prefix, m_postfix, m_random);
+    //ROS_INFO("Resetting TriangleMeshVisual %lu_TriangleMesh_%lu_%lu",m_prefix, m_postfix, m_random);
 
 
     std::stringstream sstm;
@@ -526,7 +526,7 @@ void TriangleMeshVisual::setMessage(const mesh_msgs::msg::TriangleMeshStamped::C
   // vertex colors
   // check if there are vertex colors for each vertex
   if(mesh.vertex_colors.size() == mesh.vertices.size()){
-    ROS_INFO("Received %lu vertex colors.", mesh.vertex_colors.size());
+    //ROS_INFO("Received %lu vertex colors.", mesh.vertex_colors.size());
     m_vertex_colors_enabled = true;
   }
   else if(mesh.vertex_colors.size() > 0){
@@ -536,7 +536,7 @@ void TriangleMeshVisual::setMessage(const mesh_msgs::msg::TriangleMeshStamped::C
   // triangle colors
   // check if there are vertex colors for each vertex
   if(mesh.triangle_colors.size() == mesh.triangles.size()){
-    ROS_INFO("Received %lu triangle colors.", mesh.triangle_colors.size());
+    //ROS_INFO("Received %lu triangle colors.", mesh.triangle_colors.size());
     m_triangle_colors_enabled = true;
 
     // space for the extra mesh
@@ -550,7 +550,7 @@ void TriangleMeshVisual::setMessage(const mesh_msgs::msg::TriangleMeshStamped::C
   // texture coords
   // check if there are texture coords for each vertex
   if(mesh.vertex_texture_coords.size() == mesh.vertices.size()){
-    ROS_INFO("Received %lu texture coords.", mesh.vertex_texture_coords.size());
+    //ROS_INFO("Received %lu texture coords.", mesh.vertex_texture_coords.size());
     m_texture_coords_enabled = true; // enable texture coords
   }
   else if(mesh.vertex_texture_coords.size() > 0){
@@ -560,7 +560,7 @@ void TriangleMeshVisual::setMessage(const mesh_msgs::msg::TriangleMeshStamped::C
   // vertex normals
   // check if there are vertex normals for each vertex
   if(mesh.vertex_normals.size() == mesh.vertices.size()){
-    ROS_INFO("Received %lu vertex normals.", mesh.vertex_normals.size());
+    //ROS_INFO("Received %lu vertex normals.", mesh.vertex_normals.size());
     m_vertex_normals_enabled = true;
     // space for the normals in the buffer
     vertex_count += mesh.vertices.size();
