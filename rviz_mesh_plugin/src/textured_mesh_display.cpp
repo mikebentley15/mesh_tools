@@ -527,12 +527,12 @@ void TexturedMeshDisplay::incomingVertexColors(const mesh_msgs::msg::MeshVertexC
 {
     if (m_meshVisuals.empty())
     {
-        ROS_ERROR("Received vertex colors, but no visual available!");
+        //ROS_ERROR("Received vertex colors, but no visual available!");
         return;
     }
     if (colorsStamped->uuid.compare(m_lastUuid) != 0)
     {
-        ROS_ERROR("Received vertex colors, but UUIDs dont match!");
+        //ROS_ERROR("Received vertex colors, but UUIDs dont match!");
         return;
     }
 
@@ -545,12 +545,12 @@ void TexturedMeshDisplay::incomingVertexCosts(const mesh_msgs::msg::MeshVertexCo
 {
     if (m_meshVisuals.empty())
     {
-        ROS_ERROR("Received vertex costs, but no visual available!");
+        //ROS_ERROR("Received vertex costs, but no visual available!");
         return;
     }
     if (costsStamped->uuid.compare(m_lastUuid) != 0)
     {
-        ROS_ERROR("Received vertex costs, but UUIDs dont match!");
+        //ROS_ERROR("Received vertex costs, but UUIDs dont match!");
         return;
     }
 
@@ -805,7 +805,7 @@ boost::shared_ptr<TexturedMeshVisual> TexturedMeshDisplay::getCurrentVisual()
 
     if (m_meshVisuals.empty())
     {
-        ROS_ERROR("Requested current visual when none is available!");
+        //ROS_ERROR("Requested current visual when none is available!");
     }
 
     return m_meshVisuals.back();
@@ -822,16 +822,16 @@ void TexturedMeshDisplay::processMessage(const mesh_msgs::msg::MeshGeometryStamp
         position, orientation)
     )
     {
-        ROS_ERROR(
-            "Error transforming from frame '%s' to frame '%s'",
-            meshMsg->header.frame_id.c_str(), qPrintable(rviz::Display::fixed_frame_)
-        );
+        //ROS_ERROR(
+        //    "Error transforming from frame '%s' to frame '%s'",
+        //    meshMsg->header.frame_id.c_str(), qPrintable(rviz::Display::fixed_frame_)
+        //);
         return;
     }
 
     if (!m_lastUuid.empty() && meshMsg->uuid.compare(m_lastUuid) != 0)
     {
-        ROS_WARN("Received geometry with new UUID!");
+        //ROS_WARN("Received geometry with new UUID!");
         m_costCache.clear();
 
     }

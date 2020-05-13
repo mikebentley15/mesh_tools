@@ -584,7 +584,7 @@ void TexturedMeshVisual::enteringTriangleMeshWithVertexCosts(
   float range = maxCost - minCost;
   if (range <= 0)
   {
-    ROS_ERROR("Illegal vertex cost limits!");
+    //ROS_ERROR("Illegal vertex cost limits!");
     return;
   }
 
@@ -883,7 +883,7 @@ bool TexturedMeshVisual::setGeometry(const mesh_msgs::msg::MeshGeometryStamped::
   // check if there are enough vertices given
   if (mesh.vertices.size() < 3)
   {
-    ROS_WARN("Received not enough vertices, can't create mesh!");
+    //ROS_WARN("Received not enough vertices, can't create mesh!");
     return false;
   }
 
@@ -901,7 +901,7 @@ bool TexturedMeshVisual::setGeometry(const mesh_msgs::msg::MeshGeometryStamped::
   }
   else if (mesh.vertex_normals.size() > 0)
   {
-    ROS_WARN("Received not as much vertex normals as vertices, ignoring vertex normals!");
+    //ROS_WARN("Received not as much vertex normals as vertices, ignoring vertex normals!");
   }
 
   // avoid memory reallocation
@@ -929,13 +929,13 @@ bool TexturedMeshVisual::setVertexColors(const mesh_msgs::msg::MeshVertexColorsS
   //check if these MeshVertexColors belong to the current mesh and were not already loaded
   if(m_meshUuid != vertexColorsMsg->uuid)
   {
-    ROS_WARN("Can't add vertex colors, uuids do not match.");
+    //ROS_WARN("Can't add vertex colors, uuids do not match.");
     return false;
   }
   // check if the vertex colors for this mesh were already set
   if(m_vertexColorsUuid == vertexColorsMsg->uuid)
   {
-    ROS_WARN("Can't add vertex colors, already received vertex colors for this mesh.");
+    //ROS_WARN("Can't add vertex colors, already received vertex colors for this mesh.");
     return false;
   }
 
@@ -949,7 +949,7 @@ bool TexturedMeshVisual::setVertexColors(const mesh_msgs::msg::MeshVertexColorsS
   }
   else
   {
-    ROS_WARN("Received not as much vertex colors as vertices, ignoring the vertex colors!");
+    //ROS_WARN("Received not as much vertex colors as vertices, ignoring the vertex colors!");
     return false;
   }
 
@@ -968,7 +968,7 @@ bool TexturedMeshVisual::setVertexCosts(
   //check if these MeshVertexCosts belong to the current mesh and were not already loaded
   if(m_meshUuid != vertexCostsMsg->uuid)
   {
-    ROS_WARN("Can't add vertex costs, uuids do not match.");
+    //ROS_WARN("Can't add vertex costs, uuids do not match.");
     return false;
   }
 
@@ -982,7 +982,7 @@ bool TexturedMeshVisual::setVertexCosts(
   }
   else
   {
-    ROS_WARN("Received not as much vertex costs as vertices, ignoring the vertex costs!");
+    //ROS_WARN("Received not as much vertex costs as vertices, ignoring the vertex costs!");
     return false;
   }
 
@@ -1003,7 +1003,7 @@ bool TexturedMeshVisual::setVertexCosts(
   //check if these MeshVertexCosts belong to the current mesh and were not already loaded
   if(m_meshUuid != vertexCostsMsg->uuid)
   {
-    ROS_WARN("Can't add vertex costs, uuids do not match.");
+    //ROS_WARN("Can't add vertex costs, uuids do not match.");
     return false;
   }
 
@@ -1017,7 +1017,7 @@ bool TexturedMeshVisual::setVertexCosts(
   }
   else
   {
-    ROS_WARN("Received not as much vertex costs as vertices, ignoring the vertex costs!");
+    //ROS_WARN("Received not as much vertex costs as vertices, ignoring the vertex costs!");
     return false;
   }
 
@@ -1033,13 +1033,13 @@ bool TexturedMeshVisual::setMaterials(const mesh_msgs::msg::MeshMaterialsStamped
   //check if these MeshMaterials belong to the current mesh and were not already loaded
   if(m_meshUuid != materialMsg->uuid)
   {
-    ROS_WARN("Can't add materials, uuids do not match.");
+    //ROS_WARN("Can't add materials, uuids do not match.");
     return false;
   }
     //check if the MeshMaterials were already set for this mesh
   if(m_materialsUuid == materialMsg->uuid)
   {
-    ROS_WARN("Can't add materials, already received materials for this mesh.");
+    //ROS_WARN("Can't add materials, already received materials for this mesh.");
     return false;
   }
 
@@ -1053,7 +1053,7 @@ bool TexturedMeshVisual::setMaterials(const mesh_msgs::msg::MeshMaterialsStamped
   }
   else
   {
-    ROS_WARN("Received unmatching numbers of clusters and material indices, ignoring materials!");
+    //ROS_WARN("Received unmatching numbers of clusters and material indices, ignoring materials!");
     return false;
   }
 
@@ -1067,7 +1067,7 @@ bool TexturedMeshVisual::setMaterials(const mesh_msgs::msg::MeshMaterialsStamped
   }
   else if (meshMaterials.vertex_tex_coords.size() > 0)
   {
-    ROS_WARN("Received not as much texture coords as vertices, ignoring texture coords!");
+    //ROS_WARN("Received not as much texture coords as vertices, ignoring texture coords!");
   }
 
   enteringTexturedTriangleMesh(m_meshMsg, meshMaterials);
@@ -1081,7 +1081,7 @@ bool TexturedMeshVisual::addTexture(const mesh_msgs::msg::MeshTexture::ConstShar
 {
   if(m_meshUuid != textureMsg->uuid || m_materialsUuid != textureMsg->uuid)
   {
-    ROS_WARN("Can't add texture, uuids do not match.");
+    //ROS_WARN("Can't add texture, uuids do not match.");
     return false;
   }
 
@@ -1111,7 +1111,7 @@ bool TexturedMeshVisual::addTexture(const mesh_msgs::msg::MeshTexture::ConstShar
   }
   else
   {
-    ROS_WARN("Can't load image into texture material, material does not exist!");
+    //ROS_WARN("Can't load image into texture material, material does not exist!");
     return false;
   }
 
@@ -1128,7 +1128,7 @@ Ogre::PixelFormat TexturedMeshVisual::getOgrePixelFormatFromRosString(std::strin
     return Ogre::PF_BYTE_RGB;
   }
 
-  ROS_WARN("Unknown texture encoding! Using Ogre::PF_UNKNOWN");
+  //ROS_WARN("Unknown texture encoding! Using Ogre::PF_UNKNOWN");
   return Ogre::PF_UNKNOWN;
 }
 

@@ -514,7 +514,7 @@ void TriangleMeshVisual::setMessage(const mesh_msgs::msg::TriangleMeshStamped::C
 
   // check if there are enough vertices given
   if (mesh.vertices.size() < 3){
-    ROS_WARN("Received not enough vertices, can't create mesh!");
+    //ROS_WARN("Received not enough vertices, can't create mesh!");
     return;
   }
 
@@ -530,7 +530,7 @@ void TriangleMeshVisual::setMessage(const mesh_msgs::msg::TriangleMeshStamped::C
     m_vertex_colors_enabled = true;
   }
   else if(mesh.vertex_colors.size() > 0){
-    ROS_WARN("Received not as much vertex colors as vertices, ignoring the vertex colors!");
+    //ROS_WARN("Received not as much vertex colors as vertices, ignoring the vertex colors!");
   }
 
   // triangle colors
@@ -544,7 +544,7 @@ void TriangleMeshVisual::setMessage(const mesh_msgs::msg::TriangleMeshStamped::C
     index_count += 3 * mesh.triangles.size();
   }
   else if(mesh.triangle_colors.size() > 0){
-    ROS_WARN("Received not as much triangle colors as triangles, ignoring the triangle colors!");
+    //ROS_WARN("Received not as much triangle colors as triangles, ignoring the triangle colors!");
   }
 
   // texture coords
@@ -554,7 +554,7 @@ void TriangleMeshVisual::setMessage(const mesh_msgs::msg::TriangleMeshStamped::C
     m_texture_coords_enabled = true; // enable texture coords
   }
   else if(mesh.vertex_texture_coords.size() > 0){
-    ROS_WARN("Received not as much texture coords as vertices, ignoring texture coords!");
+    //ROS_WARN("Received not as much texture coords as vertices, ignoring texture coords!");
   }
 
   // vertex normals
@@ -567,7 +567,7 @@ void TriangleMeshVisual::setMessage(const mesh_msgs::msg::TriangleMeshStamped::C
     index_count += mesh.vertices.size() * 2;
   }
   else if(mesh.vertex_normals.size() > 0){
-    ROS_WARN("Received not as much vertex normals as vertices, ignoring vertex normals!");
+    //ROS_WARN("Received not as much vertex normals as vertices, ignoring vertex normals!");
   }
 
   // avoid memory reallocation

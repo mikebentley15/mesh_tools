@@ -194,7 +194,7 @@ void FaceSelectionTool::setTransform(const mesh_msgs::TriangleMeshStamped &mesh)
                                                   mesh.header.stamp,
                                                   position, orientation))
     {
-        ROS_ERROR("Error transforming from frame '%s' to the fixed_frame",
+        //ROS_ERROR("Error transforming from frame '%s' to the fixed_frame",
         mesh.header.frame_id.c_str());
         return;
     }

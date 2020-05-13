@@ -379,8 +379,8 @@ void TriangleMeshDisplay::processMessage(const mesh_msgs::msg::TriangleMeshStamp
           meshMsg->header.stamp,
           position, orientation)
     ){
-        ROS_ERROR("Error transforming from frame '%s' to frame '%s'",
-            meshMsg->header.frame_id.c_str(), qPrintable(rviz::Display::fixed_frame_));
+        //ROS_ERROR("Error transforming from frame '%s' to frame '%s'",
+        //    meshMsg->header.frame_id.c_str(), qPrintable(rviz::Display::fixed_frame_));
         return;
     }
 
