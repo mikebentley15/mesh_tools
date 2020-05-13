@@ -107,7 +107,7 @@ MeshGoalTool::MeshGoalTool()
   msg.pose.orientation.z = ros_orientation.z;
   msg.pose.orientation.w = ros_orientation.w;
   
-  msg.header.stamp = ros::Time::now();
+  msg.header.stamp = rclcpp::Time::now();
   msg.header.frame_id = context_->getFixedFrame().toStdString();
   pose_pub_.publish(msg);
  }

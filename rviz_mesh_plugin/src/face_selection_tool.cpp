@@ -50,6 +50,7 @@
 
 #include "face_selection_tool.h"
 #include <rviz/properties/ros_topic_property.h>
+#include <rclcpp/rclcpp.hpp>
 
 #include <pluginlib/class_list_macros.h>
 PLUGINLIB_EXPORT_CLASS( rviz_mesh_plugin::FaceSelectionTool, rviz::Tool )
@@ -326,7 +327,7 @@ int FaceSelectionTool::processKeyEvent(QKeyEvent *event, rviz::RenderPanel* pane
     mesh_msgs::TriangleMeshStamped mesh;
     getSegmentMesh(mesh.mesh);
     mesh.header.frame_id = "world";
-    mesh.header.stamp = ros::Time::now();
+    mesh.header.stamp = rclcpp::Time::now();
     mesh_pub.publish( mesh );
     */
 
@@ -432,7 +433,7 @@ void FaceSelectionTool::selectSingleFace(rviz::ViewportMouseEvent& event)
 
       Ogre::Vector3 goal = ray.getPoint(dist);
       geometry_msgs::PoseStamped goal_msg;
-      goal_msg.header.stamp = ros::Time::now();
+      goal_msg.header.stamp = rclcpp::Time::now();
       goal_msg.header.frame_id = context_->getFixedFrame().toStdString();
       goal_msg.pose.position.x = goal.x;
       goal_msg.pose.position.y = goal.y;
