@@ -63,7 +63,6 @@
 
 #include <tf2_ros/transform_listener.h>
 
-//#include <rviz/visualization_manager.h>
 #include <rviz_common/frame_manager_iface.hpp>
 #include <rviz_common/display_context.hpp>
 #include <rviz_common/properties/property_tree_model.hpp>

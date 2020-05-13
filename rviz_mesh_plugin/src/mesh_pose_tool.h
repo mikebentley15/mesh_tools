@@ -52,9 +52,9 @@
  #include <OgreRay.h>
  
  #include <QCursor>
- #include <ros/ros.h>
- #include <rviz/tool.h>
- #include <rviz/ogre_helpers/arrow.h>
+ #include <rclcpp/rclcpp.hpp>
+ #include <rviz_common/tool.hpp>
+ #include <rviz_rendering/objects/arrow.hpp>
  
 namespace rviz_mesh_plugin{
  

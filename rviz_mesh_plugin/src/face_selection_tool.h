@@ -58,17 +58,14 @@
 #include <QApplication>
 #include <QIcon>
 
-#include <ros/console.h>
-#include <rviz/viewport_mouse_event.h>
-#include <rviz/visualization_manager.h>
-#include <rviz/geometry.h>
+#include <rviz_common/viewport_mouse_event.hpp>
+#include <rviz_rendering/geometry.hpp>
 
 #include <rviz_common/display_context.hpp>
 #include <rviz_common/frame_manager_iface.hpp>
 #include <rviz_common/display.hpp>
 
 #include <rviz_common/tool.hpp>
-//#include <rviz_common/tool_manager.hpp>
 #include <rviz_common/display_group.hpp>
 
 #include <geometry_msgs/msg/point32.hpp>
@@ -77,7 +74,7 @@
 #include <std_msgs/msg/int32.hpp>
 
 #ifndef Q_MOC_RUN
-#include <rviz/mesh_loader.h>
+#include <rviz_rendering/mesh_loader.hpp>
 
 #include <OgreManualObject.h>
 #include <OgreSceneNode.h>
