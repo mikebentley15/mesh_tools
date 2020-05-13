@@ -86,7 +86,7 @@ class TriangleMeshVisual;
  * @brief TriangleMeshDisplay
  * @brief Class to show options in rviz window.
  */
-class TriangleMeshDisplay : public rviz::Display
+class TriangleMeshDisplay : public rviz_common::Display
 {
 Q_OBJECT
 public:
@@ -200,46 +200,46 @@ private:
     size_t m_displayID;
 
     /// Property to handle topic for meshMsg
-    rviz::RosTopicProperty* m_meshTopic;
+    rviz_common::RosTopicProperty* m_meshTopic;
 
     /// Property to set meshBufferSize
-    rviz::IntProperty* m_meshBufferSize;
+    rviz_common::IntProperty* m_meshBufferSize;
 
     /// Property to set wireframe color
-    rviz::ColorProperty* m_wireframeColor;
+    rviz_common::ColorProperty* m_wireframeColor;
 
     /// Property to set wireframe transparency
-    rviz::FloatProperty* m_wireframeAlpha;
+    rviz_common::FloatProperty* m_wireframeAlpha;
 
     /// Property to set faces color
-    rviz::ColorProperty* m_facesColor;
+    rviz_common::ColorProperty* m_facesColor;
 
     /// Property to set faces transparency
-    rviz::FloatProperty* m_facesAlpha;
+    rviz_common::FloatProperty* m_facesAlpha;
 
     /// Property to use the vertex colors
-    rviz::BoolProperty* m_facesVertexColors;
+    rviz_common::BoolProperty* m_facesVertexColors;
 
     /// Property to use the triangle colors
-    rviz::BoolProperty* m_facesTriangleColors;
+    rviz_common::BoolProperty* m_facesTriangleColors;
 
     /// Property to set the size of the normals
-    rviz::FloatProperty* m_scalingFactor;
+    rviz_common::FloatProperty* m_scalingFactor;
 
     /// Property to set the color of the normals
-    rviz::ColorProperty* m_normalsColor;
+    rviz_common::ColorProperty* m_normalsColor;
 
     /// Property to set the transparency of the normals
-    rviz::FloatProperty* m_normalsAlpha;
+    rviz_common::FloatProperty* m_normalsAlpha;
 
     /// Property to select the display type
-    rviz::EnumProperty* m_displayType;
+    rviz_common::EnumProperty* m_displayType;
 
     /// Property to select the wireframe
-    rviz::BoolProperty* m_showWireframe;
+    rviz_common::BoolProperty* m_showWireframe;
 
     /// Property to select the normals
-    rviz::BoolProperty* m_showNormals;
+    rviz_common::BoolProperty* m_showNormals;
 
 };
 } // End namespace rviz_mesh_plugin

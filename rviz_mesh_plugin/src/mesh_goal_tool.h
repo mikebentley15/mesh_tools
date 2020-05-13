@@ -92,9 +92,9 @@ protected:
     virtual void onPoseSet( const Ogre::Vector3& position, const Ogre::Quaternion& orientation );
 
     /// Property for the topic
-    rviz::StringProperty* topic_property_;
+    rviz_common::StringProperty* topic_property_;
     /// Switch bottom / top for selection
-    rviz::BoolProperty* switch_bottom_top_;
+    rviz_common::BoolProperty* switch_bottom_top_;
     /// Publisher
     ros::Publisher pose_pub_;
     /// Node handle

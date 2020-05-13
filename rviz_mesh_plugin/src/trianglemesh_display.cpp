@@ -83,7 +83,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
     m_meshCounter = 0;
 
     // topic properties
-    m_meshTopic = new rviz::RosTopicProperty(
+    m_meshTopic = new rviz_common::RosTopicProperty(
         "Topic",
         "",
         QString::fromStdString(rosidl_generator_traits::data_type<mesh_msgs::msg::TriangleMeshStamped>()),
@@ -93,7 +93,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
     );
 
     // mesh buffer size property
-    m_meshBufferSize = new rviz::IntProperty(
+    m_meshBufferSize = new rviz_common::IntProperty(
         "Mesh Buffer Size",
         1,
         "Number of prior meshes to display.",
@@ -103,7 +103,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
     m_meshBufferSize->setMin(1);
 
     // Display type selection dropdown
-    m_displayType = new rviz::EnumProperty("Display Type",
+    m_displayType = new rviz_common::EnumProperty("Display Type",
         "Fixed Color",
         "Select Display Type for Mesh",
         this,
@@ -116,7 +116,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
     m_displayType->addOption("Hide Faces", 3);
 
      // face color properties
-    m_facesColor = new rviz::ColorProperty(
+    m_facesColor = new rviz_common::ColorProperty(
         "Faces Color",
         QColor(0, 255, 0),
         "The color of the faces.",
@@ -126,7 +126,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
     );
 
     // face alpha properties
-    m_facesAlpha = new rviz::FloatProperty(
+    m_facesAlpha = new rviz_common::FloatProperty(
         "Faces Alpha",
         1.0,
         "The alpha-value of the faces",
@@ -138,7 +138,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
     m_facesAlpha->setMax(1);
 
 
-    m_showWireframe = new rviz::BoolProperty(
+    m_showWireframe = new rviz_common::BoolProperty(
         "Show Wireframe",
         true,
         "Show Wireframe",
@@ -148,7 +148,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
     );
 
     // wireframe color property
-    m_wireframeColor = new rviz::ColorProperty(
+    m_wireframeColor = new rviz_common::ColorProperty(
         "Wireframe Color",
         QColor(0, 0, 0),
         "The color of the wireframe.",
@@ -158,7 +158,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
     );
 
     // wireframe alpha property
-    m_wireframeAlpha = new rviz::FloatProperty(
+    m_wireframeAlpha = new rviz_common::FloatProperty(
         "Wireframe Alpha",
         1.0,
         "The alpha-value of the wireframe",
@@ -169,7 +169,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
     m_wireframeAlpha->setMin(0);
     m_wireframeAlpha->setMax(1);
 
-    m_showNormals = new rviz::BoolProperty(
+    m_showNormals = new rviz_common::BoolProperty(
         "Show Normals",
         true,
         "Show Normals",
@@ -178,7 +178,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
         this
     );
 
-    m_normalsColor = new rviz::ColorProperty(
+    m_normalsColor = new rviz_common::ColorProperty(
         "Normals Color",
         QColor(255, 0, 255),
         "The color of the normals.",
@@ -187,7 +187,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
         this
     );
 
-    m_normalsAlpha = new rviz::FloatProperty(
+    m_normalsAlpha = new rviz_common::FloatProperty(
         "Normals Alpha",
         1.0,
         "The alpha-value of the normals",
@@ -198,7 +198,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
     m_normalsAlpha->setMin(0);
     m_normalsAlpha->setMax(1);
 
-    m_scalingFactor = new rviz::FloatProperty(
+    m_scalingFactor = new rviz_common::FloatProperty(
         "Normals Scaling Factor",
         0.1,
         "Scaling factor of the normals",
@@ -218,10 +218,10 @@ TriangleMeshDisplay::~TriangleMeshDisplay()
 void TriangleMeshDisplay::onInitialize()
 {
     m_tfMeshFilter = new tf2_ros::MessageFilter<mesh_msgs::msg::TriangleMeshStamped>(
-        *rviz::Display::context_->getTF2BufferPtr(),
-        rviz::Display::fixed_frame_.toStdString(),
+        *rviz_common::Display::context_->getTF2BufferPtr(),
+        rviz_common::Display::fixed_frame_.toStdString(),
         1,
-        rviz::Display::update_nh_
+        rviz_common::Display::update_nh_
     );
 
     m_tfMeshFilter->connectInput(m_meshSubscriber);
@@ -237,7 +237,7 @@ void TriangleMeshDisplay::onInitialize()
 
 void TriangleMeshDisplay::reset()
 {
-    rviz::Display::reset(); // TODO bad hack?!
+    rviz_common::Display::reset(); // TODO bad hack?!
     m_tfMeshFilter->clear();
     m_messagesReceived = 0;
     m_meshVisuals.clear();
@@ -259,11 +259,11 @@ void TriangleMeshDisplay::subscribe()
 
     try {
         m_meshSubscriber.subscribe(update_nh_, m_meshTopic->getTopicStd(), 1);
-        setStatus(rviz::StatusProperty::Ok, "Topic", "OK");
+        setStatus(rviz_common::StatusProperty::Ok, "Topic", "OK");
     }
     catch (ros::Exception& e)
     {
-        setStatus(rviz::StatusProperty::Error, "Topic", QString("Error subscribing: ") + e.what());
+        setStatus(rviz_common::StatusProperty::Error, "Topic", QString("Error subscribing: ") + e.what());
     }
 
     // Nothing
@@ -319,7 +319,7 @@ void TriangleMeshDisplay::fixedFrameChanged()
 void TriangleMeshDisplay::incomingMessage(const mesh_msgs::msg::TriangleMeshStamped::ConstSharedPtr& meshMsg)
 {
     m_messagesReceived++;
-    setStatus(rviz::StatusProperty::Ok, "Topic", QString::number(m_messagesReceived) + " messages received");
+    setStatus(rviz_common::StatusProperty::Ok, "Topic", QString::number(m_messagesReceived) + " messages received");
     processMessage(meshMsg);
 }
 
@@ -380,7 +380,7 @@ void TriangleMeshDisplay::processMessage(const mesh_msgs::msg::TriangleMeshStamp
           position, orientation)
     ){
         //ROS_ERROR("Error transforming from frame '%s' to frame '%s'",
-        //    meshMsg->header.frame_id.c_str(), qPrintable(rviz::Display::fixed_frame_));
+        //    meshMsg->header.frame_id.c_str(), qPrintable(rviz_common::Display::fixed_frame_));
         return;
     }
 
@@ -409,4 +409,4 @@ void TriangleMeshDisplay::processMessage(const mesh_msgs::msg::TriangleMeshStamp
 } // end namespace rviz_mesh_plugin
 
 #include <pluginlib/class_list_macros.hpp>
-PLUGINLIB_EXPORT_CLASS(rviz_mesh_plugin::TriangleMeshDisplay, rviz::Display)
+PLUGINLIB_EXPORT_CLASS(rviz_mesh_plugin::TriangleMeshDisplay, rviz_common::Display)

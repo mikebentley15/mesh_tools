@@ -63,7 +63,7 @@ namespace rviz_mesh_plugin
 {
 
   MeshPoseTool::MeshPoseTool()
-    : rviz::Tool(),
+    : rviz_common::Tool(),
       arrow_( NULL )
   {
   }
@@ -75,7 +75,7 @@ namespace rviz_mesh_plugin
 
   void MeshPoseTool::onInitialize()
   {
-    arrow_ = new rviz::Arrow( scene_manager_, NULL, 2.0f, 0.2f, 0.5f, 0.35f );
+    arrow_ = new rviz_rendering::Arrow( scene_manager_, NULL, 2.0f, 0.2f, 0.5f, 0.35f );
     arrow_->setColor( 0.0f, 1.0f, 0.0f, 1.0f );
     arrow_->getSceneNode()->setVisible( false );
   }
@@ -91,7 +91,7 @@ namespace rviz_mesh_plugin
     arrow_->getSceneNode()->setVisible( false );
   }
 
-  int MeshPoseTool::processMouseEvent( rviz::ViewportMouseEvent& event )
+  int MeshPoseTool::processMouseEvent( rviz_common::ViewportMouseEvent& event )
   {
     int flags = 0;
 
@@ -114,7 +114,7 @@ namespace rviz_mesh_plugin
       {
         Ogre::Vector3 cur_pos;
         Ogre::Plane plane( ori_, pos_ );
-        if( rviz::getPointOnPlaneFromWindowXY( event.viewport,
+        if( rviz_common::getPointOnPlaneFromWindowXY( event.viewport,
               plane, event.x, event.y, cur_pos ))
         {
 		  // right hand coordinate system
@@ -141,7 +141,7 @@ namespace rviz_mesh_plugin
       {
         Ogre::Vector3 cur_pos;
         Ogre::Plane plane( ori_, pos_ );
-        if( rviz::getPointOnPlaneFromWindowXY( event.viewport,
+        if( rviz_common::getPointOnPlaneFromWindowXY( event.viewport,
               plane, event.x, event.y, cur_pos ))
         {
 		  // arrow foreward negative z
@@ -163,7 +163,7 @@ namespace rviz_mesh_plugin
     return flags;
   }
   
-bool MeshPoseTool::selectTriangle(rviz::ViewportMouseEvent& event, Ogre::Vector3& position, Ogre::Vector3& triangle_normal)
+bool MeshPoseTool::selectTriangle(rviz_common::ViewportMouseEvent& event, Ogre::Vector3& position, Ogre::Vector3& triangle_normal)
 {
   Ogre::Ray ray = event.viewport->getCamera()->getCameraToViewportRay
 	((float) event.x / event.viewport->getActualWidth(),

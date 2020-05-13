@@ -112,7 +112,7 @@ class Vector3;
 
 namespace rviz_mesh_plugin
 {
-class FaceSelectionTool: public rviz::Tool
+class FaceSelectionTool: public rviz_common::Tool
 {
 Q_OBJECT
 public:
@@ -123,8 +123,8 @@ public:
   virtual void activate();
   virtual void deactivate();
 
-  virtual int processKeyEvent(QKeyEvent* event, rviz::RenderPanel* panel);
-  virtual int processMouseEvent(rviz::ViewportMouseEvent& event);
+  virtual int processKeyEvent(QKeyEvent* event, rviz_common::RenderPanel* panel);
+  virtual int processMouseEvent(rviz_common::ViewportMouseEvent& event);
 
   static const float BOX_SIZE_TOLERANCE;
   static const size_t MAXIMUM_PICKED_FACES;
@@ -151,10 +151,10 @@ private:
     void setReferenceMesh( mesh_msgs::msg::TriangleMesh mesh);
     void getSegmentMesh( mesh_msgs::msg::TriangleMesh& mesh);
 
-    void selectSingleFace(rviz::ViewportMouseEvent& event);
-    void deselectSingleFace(rviz::ViewportMouseEvent& event);
+    void selectSingleFace(rviz_common::ViewportMouseEvent& event);
+    void deselectSingleFace(rviz_common::ViewportMouseEvent& event);
 
-    bool singleRayQuery(rviz::ViewportMouseEvent& event, int num_results, Ogre::Ray& ray);
+    bool singleRayQuery(rviz_common::ViewportMouseEvent& event, int num_results, Ogre::Ray& ray);
 
     void getIdentityOfSingleFace(Ogre::ManualObject* mesh,
                                  Ogre::Ray &ray,
@@ -176,7 +176,7 @@ private:
     Ogre::MaterialPtr segment_mesh_material;
     Ogre::SceneNode* scene_node;
 
-    rviz::RosTopicProperty* mesh_topic;
+    rviz_common::RosTopicProperty* mesh_topic;
 
     std::map<size_t, std::vector<size_t> > m_goalFaces;
 

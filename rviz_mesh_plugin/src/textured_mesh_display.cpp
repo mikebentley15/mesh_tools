@@ -92,7 +92,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_meshCounter = 0;
 
     // topic properties
-    m_meshTopic = new rviz::RosTopicProperty(
+    m_meshTopic = new rviz_common::RosTopicProperty(
         "Geometry Topic",
         "",
         QString::fromStdString(rosidl_generator_traits::data_type<mesh_msgs::msg::MeshGeometryStamped>()),
@@ -102,7 +102,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     );
 
     // mesh buffer size property
-    m_meshBufferSize = new rviz::IntProperty(
+    m_meshBufferSize = new rviz_common::IntProperty(
         "Mesh Buffer Size",
         1,
         "Number of prior meshes to display.",
@@ -112,7 +112,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_meshBufferSize->setMin(1);
 
     // Display type selection dropdown
-    m_displayType = new rviz::EnumProperty(
+    m_displayType = new rviz_common::EnumProperty(
         "Display Type",
         "Faces with fixed color",
         "Select Display Type for Mesh",
@@ -126,7 +126,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_displayType->addOption("Vertex Costs", 3);
     m_displayType->addOption("Hide Faces", 4);
 
-    m_costColorType = new rviz::EnumProperty(
+    m_costColorType = new rviz_common::EnumProperty(
         "Color Scale",
         "Rainbow",
         "Select color scale for vertex costs. Mesh will update when new data arrives.",
@@ -137,7 +137,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_costColorType->addOption("Rainbow", 0);
     m_costColorType->addOption("Red Green", 1);
 
-    m_vertexColorsTopic = new rviz::RosTopicProperty(
+    m_vertexColorsTopic = new rviz_common::RosTopicProperty(
         "Vertex Colors Topic",
         "",
         QString::fromStdString(rosidl_generator_types::data_type<mesh_msgs::msg::MeshVertexColorsStamped>()),
@@ -147,7 +147,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
         this
     );
 
-    m_vertexCostsTopic = new rviz::RosTopicProperty(
+    m_vertexCostsTopic = new rviz_common::RosTopicProperty(
         "Vertex Costs Topic",
         "",
         QString::fromStdString(rosidl_generator_types::data_type<mesh_msgs::msg::MeshVertexCostsStamped>()),
@@ -157,7 +157,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
         this
     );
 
-    m_showTexturedFacesOnly = new rviz::BoolProperty(
+    m_showTexturedFacesOnly = new rviz_common::BoolProperty(
         "Show textured faces only",
         false,
         "Show textured faces only",
@@ -167,7 +167,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     );
 
      // face color properties
-    m_facesColor = new rviz::ColorProperty(
+    m_facesColor = new rviz_common::ColorProperty(
         "Faces Color",
         QColor(0, 255, 0),
         "The color of the faces.",
@@ -177,7 +177,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     );
 
     // face alpha properties
-    m_facesAlpha = new rviz::FloatProperty(
+    m_facesAlpha = new rviz_common::FloatProperty(
         "Faces Alpha",
         1.0,
         "The alpha-value of the faces",
@@ -189,7 +189,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_facesAlpha->setMax(1);
 
     // Vertex color service name property
-    m_vertexColorServiceName = new rviz::StringProperty(
+    m_vertexColorServiceName = new rviz_common::StringProperty(
         "Vertex Color Service Name",
         "get_vertex_colors",
         "Name of the Vertex Color Service to request Vertex Colors from.",
@@ -199,7 +199,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     );
 
     // Material service name property
-    m_materialServiceName = new rviz::StringProperty(
+    m_materialServiceName = new rviz_common::StringProperty(
         "Material Service Name",
         "get_materials",
         "Name of the Matrial Service to request Materials from.",
@@ -209,7 +209,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     );
 
     // Textures service name property
-    m_textureServiceName = new rviz::StringProperty(
+    m_textureServiceName = new rviz_common::StringProperty(
         "Texture Service Name",
         "get_texture",
         "Name of the Texture Service to request Textures from.",
@@ -218,7 +218,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
         this
     );
 
-    m_selectVertexCostMap = new rviz::EnumProperty(
+    m_selectVertexCostMap = new rviz_common::EnumProperty(
         "Vertex Costs Type",
         "-- None --",
         "Select the type of vertex cost map to be displayed. New types will appear here when a new message arrives.",
@@ -229,7 +229,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_selectVertexCostMap->addOption("-- None --", 0);
 
 
-    m_showWireframe = new rviz::BoolProperty(
+    m_showWireframe = new rviz_common::BoolProperty(
         "Show Wireframe",
         true,
         "Show Wireframe",
@@ -239,7 +239,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     );
 
     // wireframe color property
-    m_wireframeColor = new rviz::ColorProperty(
+    m_wireframeColor = new rviz_common::ColorProperty(
         "Wireframe Color",
         QColor(0, 0, 0),
         "The color of the wireframe.",
@@ -248,7 +248,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
         this
     );
     // wireframe alpha property
-    m_wireframeAlpha = new rviz::FloatProperty(
+    m_wireframeAlpha = new rviz_common::FloatProperty(
         "Wireframe Alpha",
         1.0,
         "The alpha-value of the wireframe",
@@ -260,7 +260,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_wireframeAlpha->setMax(1);
 
 
-    m_showNormals = new rviz::BoolProperty(
+    m_showNormals = new rviz_common::BoolProperty(
         "Show Normals",
         true,
         "Show Normals",
@@ -269,7 +269,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
         this
     );
 
-    m_normalsColor = new rviz::ColorProperty(
+    m_normalsColor = new rviz_common::ColorProperty(
         "Normals Color",
         QColor(255, 0, 255),
         "The color of the normals.",
@@ -277,7 +277,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
         SLOT(updateMesh()),
         this
     );
-    m_normalsAlpha = new rviz::FloatProperty(
+    m_normalsAlpha = new rviz_common::FloatProperty(
         "Normals Alpha",
         1.0,
         "The alpha-value of the normals",
@@ -287,7 +287,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     );
     m_normalsAlpha->setMin(0);
     m_normalsAlpha->setMax(1);
-    m_scalingFactor = new rviz::FloatProperty(
+    m_scalingFactor = new rviz_common::FloatProperty(
         "Normals Scaling Factor",
         0.1,
         "Scaling factor of the normals",
@@ -296,7 +296,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
         this
     );
 
-    m_costUseCustomLimits = new rviz::BoolProperty(
+    m_costUseCustomLimits = new rviz_common::BoolProperty(
         "Use Custom limits",
         false,
         "Use custom vertex cost limits",
@@ -305,7 +305,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
         this
     );
 
-    m_costLowerLimit = new rviz::FloatProperty(
+    m_costLowerLimit = new rviz_common::FloatProperty(
         "Vertex Costs Lower Limit",
         0.0,
         "Vertex costs lower limit",
@@ -315,7 +315,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     );
     m_costLowerLimit->hide();
 
-    m_costUpperLimit = new rviz::FloatProperty(
+    m_costUpperLimit = new rviz_common::FloatProperty(
         "Vertex Costs Upper Limit",
         1.0,
         "Vertex costs upper limit",
@@ -336,28 +336,28 @@ TexturedMeshDisplay::~TexturedMeshDisplay()
 void TexturedMeshDisplay::onInitialize()
 {
     m_tfMeshFilter = new tf2_ros::MessageFilter<mesh_msgs::msg::MeshGeometryStamped>(
-        *rviz::Display::context_->getTF2BufferPtr(),
-        rviz::Display::fixed_frame_.toStdString(),
+        *rviz_common::Display::context_->getTF2BufferPtr(),
+        rviz_common::Display::fixed_frame_.toStdString(),
         2,
-        rviz::Display::update_nh_
+        rviz_common::Display::update_nh_
     );
     m_tfMeshFilter->connectInput(m_meshSubscriber);
     context_->getFrameManager()->registerFilterForTransformStatusCheck(m_tfMeshFilter, this);
 
     m_tfVertexColorsFilter = new tf2_ros::MessageFilter<mesh_msgs::msg::MeshVertexColorsStamped>(
-        *rviz::Display::context_->getTF2BufferPtr(),
-        rviz::Display::fixed_frame_.toStdString(),
+        *rviz_common::Display::context_->getTF2BufferPtr(),
+        rviz_common::Display::fixed_frame_.toStdString(),
         10,
-        rviz::Display::update_nh_
+        rviz_common::Display::update_nh_
     );
     m_tfVertexColorsFilter->connectInput(m_vertexColorsSubscriber);
     context_->getFrameManager()->registerFilterForTransformStatusCheck(m_tfVertexColorsFilter, this);
 
     m_tfVertexCostsFilter = new tf2_ros::MessageFilter<mesh_msgs::msg::MeshVertexCostsStamped>(
-        *rviz::Display::context_->getTF2BufferPtr(),
-        rviz::Display::fixed_frame_.toStdString(),
+        *rviz_common::Display::context_->getTF2BufferPtr(),
+        rviz_common::Display::fixed_frame_.toStdString(),
         10,
-        rviz::Display::update_nh_
+        rviz_common::Display::update_nh_
     );
     m_tfVertexCostsFilter->connectInput(m_vertexCostsSubscriber);
     context_->getFrameManager()->registerFilterForTransformStatusCheck(m_tfVertexCostsFilter, this);
@@ -412,7 +412,7 @@ void TexturedMeshDisplay::initialServiceCall()
 
 void TexturedMeshDisplay::reset()
 {
-    rviz::Display::reset(); // TODO bad hack?!
+    rviz_common::Display::reset(); // TODO bad hack?!
     m_tfMeshFilter->clear();
     m_messagesReceived = 0;
     m_meshVisuals.clear();
@@ -437,11 +437,11 @@ void TexturedMeshDisplay::subscribe()
         m_meshSubscriber.subscribe(update_nh_, m_meshTopic->getTopicStd(), 1);
         m_vertexColorsSubscriber.subscribe(update_nh_, m_vertexColorsTopic->getTopicStd(), 1);
         m_vertexCostsSubscriber.subscribe(update_nh_, m_vertexCostsTopic->getTopicStd(), 4);
-        setStatus(rviz::StatusProperty::Ok, "Topic", "OK");
+        setStatus(rviz_common::StatusProperty::Ok, "Topic", "OK");
     }
     catch(ros::Exception& e)
     {
-        setStatus(rviz::StatusProperty::Error, "Topic", QString("Error subscribing: ") + e.what());
+        setStatus(rviz_common::StatusProperty::Error, "Topic", QString("Error subscribing: ") + e.what());
     }
 
     // Nothing
@@ -586,7 +586,7 @@ void TexturedMeshDisplay::cacheVertexCosts(
 void TexturedMeshDisplay::incomingGeometry(const mesh_msgs::msg::MeshGeometryStamped::ConstSharedPtr& meshMsg)
 {
     m_messagesReceived++;
-    setStatus(rviz::StatusProperty::Ok, "Topic", QString::number(m_messagesReceived) + " messages received");
+    setStatus(rviz_common::StatusProperty::Ok, "Topic", QString::number(m_messagesReceived) + " messages received");
     processMessage(meshMsg);
 }
 
@@ -722,7 +722,7 @@ void TexturedMeshDisplay::updateVertexColorService()
     std::string error;
     if(!ros::names::validate(m_vertexColorServiceName->getStdString(), error))
     {
-        setStatus(rviz::StatusProperty::Warn, "Services", QString("The service name contains an invalid character."));
+        setStatus(rviz_common::StatusProperty::Warn, "Services", QString("The service name contains an invalid character."));
         return;
     }
 
@@ -731,7 +731,7 @@ void TexturedMeshDisplay::updateVertexColorService()
     m_vertexColorClient = n.serviceClient<mesh_msgs::msg::GetVertexColors>(m_vertexColorServiceName->getStdString());
     if (m_vertexColorClient.exists())
     {
-        setStatus(rviz::StatusProperty::Ok, "Services", "Vertex Color Service OK");
+        setStatus(rviz_common::StatusProperty::Ok, "Services", "Vertex Color Service OK");
         if (!m_meshVisuals.empty())
         {
             requestVertexColors(m_meshVisuals.back(), m_lastUuid);
@@ -739,7 +739,7 @@ void TexturedMeshDisplay::updateVertexColorService()
     }
     else
     {
-        setStatus(rviz::StatusProperty::Warn, "Services", QString("The specified Vertex Color Service doesn't exist."));
+        setStatus(rviz_common::StatusProperty::Warn, "Services", QString("The specified Vertex Color Service doesn't exist."));
     }
 }
 
@@ -750,7 +750,7 @@ void TexturedMeshDisplay::updateMaterialAndTextureServices()
     if(!ros::names::validate(m_materialServiceName->getStdString(), error)
         || !ros::names::validate(m_textureServiceName->getStdString(), error))
     {
-        setStatus(rviz::StatusProperty::Warn, "Services", QString("The service name contains an invalid character."));
+        setStatus(rviz_common::StatusProperty::Warn, "Services", QString("The service name contains an invalid character."));
         return;
     }
 
@@ -766,16 +766,16 @@ void TexturedMeshDisplay::updateMaterialAndTextureServices()
         }
         if (m_textureClient.exists())
         {
-            setStatus(rviz::StatusProperty::Ok, "Services", "Material and Texture Service OK");
+            setStatus(rviz_common::StatusProperty::Ok, "Services", "Material and Texture Service OK");
         }
         else
         {
-            setStatus(rviz::StatusProperty::Warn, "Services", QString("The specified Texture Service doesn't exist."));
+            setStatus(rviz_common::StatusProperty::Warn, "Services", QString("The specified Texture Service doesn't exist."));
         }
     }
     else
     {
-        setStatus(rviz::StatusProperty::Warn, "Services", QString("The specified Material Service doesn't exist."));
+        setStatus(rviz_common::StatusProperty::Warn, "Services", QString("The specified Material Service doesn't exist."));
     }
 }
 
@@ -823,7 +823,7 @@ void TexturedMeshDisplay::processMessage(const mesh_msgs::msg::MeshGeometryStamp
     {
         //ROS_ERROR(
         //    "Error transforming from frame '%s' to frame '%s'",
-        //    meshMsg->header.frame_id.c_str(), qPrintable(rviz::Display::fixed_frame_)
+        //    meshMsg->header.frame_id.c_str(), qPrintable(rviz_common::Display::fixed_frame_)
         //);
         return;
     }
@@ -910,4 +910,4 @@ void TexturedMeshDisplay::requestMaterials(boost::shared_ptr<TexturedMeshVisual>
 } // end namespace rviz_mesh_plugin
 
 #include <pluginlib/class_list_macros.hpp>
-PLUGINLIB_EXPORT_CLASS(rviz_mesh_plugin::TexturedMeshDisplay, rviz::Display)
+PLUGINLIB_EXPORT_CLASS(rviz_mesh_plugin::TexturedMeshDisplay, rviz_common::Display)

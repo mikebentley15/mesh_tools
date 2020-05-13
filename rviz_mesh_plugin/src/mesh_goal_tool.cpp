@@ -47,17 +47,19 @@
 #include <rclcpp/rclcpp.hpp>
 
 #include <pluginlib/class_list_macros.hpp>
-PLUGINLIB_EXPORT_CLASS( rviz_mesh_plugin::MeshGoalTool, rviz::Tool )
+PLUGINLIB_EXPORT_CLASS( rviz_mesh_plugin::MeshGoalTool, rviz_common::Tool )
 
 namespace rviz_mesh_plugin{
 MeshGoalTool::MeshGoalTool()
 {
   shortcut_key_ = 'm';
-  topic_property_ = new rviz::StringProperty( "Topic", "goal",
-                                              "The topic on which to publish the mesh navigation goals.",
-                                              getPropertyContainer(), SLOT(updateTopic()), this);
+  topic_property_ = new rviz_common::StringProperty(
+      "Topic", "goal",
+      "The topic on which to publish the mesh navigation goals.",
+      getPropertyContainer(), SLOT(updateTopic()), this);
 
-  switch_bottom_top_ = new rviz::BoolProperty("Switch Bottom/Top",
+  switch_bottom_top_ = new rviz_common::BoolProperty(
+      "Switch Bottom/Top",
       false, "Enable to stwich the bottom and top.",
       getPropertyContainer());
 

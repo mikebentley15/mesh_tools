@@ -58,7 +58,7 @@
  
 namespace rviz_mesh_plugin{
  
-class MeshPoseTool: public rviz::Tool{
+class MeshPoseTool: public rviz_common::Tool {
  public:
    MeshPoseTool();
    virtual ~MeshPoseTool();
@@ -68,7 +68,7 @@ class MeshPoseTool: public rviz::Tool{
    virtual void activate();
    virtual void deactivate();
  
-   virtual int processMouseEvent( rviz::ViewportMouseEvent& event );
+   virtual int processMouseEvent( rviz_common::ViewportMouseEvent& event );
  
  protected:
    virtual void onPoseSet( const Ogre::Vector3& position, const Ogre::Quaternion& orientation ) = 0;
@@ -88,11 +88,11 @@ class MeshPoseTool: public rviz::Tool{
      Ogre::Vector3& orientation);
      
    bool selectTriangle(
-     rviz::ViewportMouseEvent& event,
+     rviz_common::ViewportMouseEvent& event,
      Ogre::Vector3& position,
      Ogre::Vector3& orientation);
 
-   rviz::Arrow* arrow_;
+   rviz_rendering::Arrow* arrow_;
    enum State
    {
      Position,

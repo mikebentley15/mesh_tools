@@ -54,7 +54,7 @@
 #include <OgreTechnique.h>
 
 #include <pluginlib/class_list_macros.hpp>
-PLUGINLIB_EXPORT_CLASS( rviz_mesh_plugin::FaceSelectionTool, rviz::Tool )
+PLUGINLIB_EXPORT_CLASS( rviz_mesh_plugin::FaceSelectionTool, rviz_common::Tool )
 
 namespace rviz_mesh_plugin
 {
@@ -69,7 +69,7 @@ FaceSelectionTool::FaceSelectionTool()
   m_singleSelect = false;
   m_singleDeselect = false;
 
-  mesh_topic = new rviz::RosTopicProperty(
+  mesh_topic = new rviz_common::RosTopicProperty(
     "Mesh Topic",
     "segment_mesh",
     QString::fromStdString(rosidl_generator_traits::data_type<mesh_msgs::msg::TriangleMeshStamped>()),
@@ -311,7 +311,7 @@ void FaceSelectionTool::updateSelectionMesh()
 }
 
 // Handling key events to label marked faces or to get db structure
-int FaceSelectionTool::processKeyEvent(QKeyEvent *event, rviz::RenderPanel* panel)
+int FaceSelectionTool::processKeyEvent(QKeyEvent *event, rviz_common::RenderPanel* panel)
 {
   if (event->key() == Qt::Key_K)
   {
@@ -348,7 +348,7 @@ int FaceSelectionTool::processKeyEvent(QKeyEvent *event, rviz::RenderPanel* pane
 }
 
 // Handling mouse event and mark the clicked faces
-int FaceSelectionTool::processMouseEvent(rviz::ViewportMouseEvent& event)
+int FaceSelectionTool::processMouseEvent(rviz_common::ViewportMouseEvent& event)
 {
 
   if (event.leftDown())
@@ -391,7 +391,7 @@ int FaceSelectionTool::processMouseEvent(rviz::ViewportMouseEvent& event)
 // test whether a single ray intersects with the reference mesh
 // by checking if the reference mesh is within the num_results closest targets
 // num_results must be >= 2 to allow labeling direct sight, higher allows to label trough objects... unsure if that is desirable
-bool FaceSelectionTool::singleRayQuery(rviz::ViewportMouseEvent& event, int num_results, Ogre::Ray& ray)
+bool FaceSelectionTool::singleRayQuery(rviz_common::ViewportMouseEvent& event, int num_results, Ogre::Ray& ray)
 {
   ray = event.viewport->getCamera()->getCameraToViewportRay((float) event.x / event.viewport->getActualWidth(),
                                                             (float) event.y / event.viewport->getActualHeight());
@@ -413,7 +413,7 @@ bool FaceSelectionTool::singleRayQuery(rviz::ViewportMouseEvent& event, int num_
   return false;
 }
 
-void FaceSelectionTool::selectSingleFace(rviz::ViewportMouseEvent& event)
+void FaceSelectionTool::selectSingleFace(rviz_common::ViewportMouseEvent& event)
 {
   Ogre::Ray ray;
   size_t goalSection = -1 ;
@@ -457,7 +457,7 @@ void FaceSelectionTool::selectSingleFace(rviz::ViewportMouseEvent& event)
   }
 }
 
-void FaceSelectionTool::deselectSingleFace(rviz::ViewportMouseEvent& event)
+void FaceSelectionTool::deselectSingleFace(rviz_common::ViewportMouseEvent& event)
 {
   Ogre::Ray ray;
   size_t goalSection = -1 ;
