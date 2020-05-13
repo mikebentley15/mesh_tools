@@ -1,4 +1,7 @@
-<package>
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+  schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>rviz_mesh_plugin</name>
   <description>
     RViz display types and tools for the mesh_msgs package.
@@ -10,26 +13,26 @@
   <author email="mmrozins@uos.de">Marcel Mrozinski</author>
   <author email="krschmidt@uos.de">Kristin Schmidt</author>
   <author email="jvogtherr@uos.de">Jan Philipp Vogtherr</author>
-  <buildtool_depend>catkin</buildtool_depend>
 
-  <license>BSD-3</license>
   <url>http://wiki.ros.org/ros_mesh_tools/rviz_mesh_plugin</url>
+  <license>BSD-3</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>rviz_common</depend>
+  <depend>rviz_rendering</depend>
+  <depend>std_msgs</depend>
+  <depend>mesh_msgs</depend>
+  <depend>tf2_ros</depend>
+
   <build_depend>qtbase5-dev</build_depend>
-  <build_depend>roscpp</build_depend>
-  <build_depend>rviz</build_depend>
-  <build_depend>std_msgs</build_depend>
-  <build_depend>mesh_msgs</build_depend>
-  <build_depend>tf2_ros</build_depend>
-  <run_depend>libqt5-core</run_depend>
-  <run_depend>libqt5-gui</run_depend>
-  <run_depend>libqt5-widgets</run_depend>
-  <run_depend>roscpp</run_depend>
-  <run_depend>rviz</run_depend>
-  <run_depend>std_msgs</run_depend>
-  <run_depend>mesh_msgs</run_depend>
-  <run_depend>tf2_ros</run_depend>
+  <exec_depend>libqt5-core</exec_depend>
+  <exec_depend>libqt5-gui</exec_depend>
+  <exec_depend>libqt5-widgets</exec_depend>
   
   <export>
     <rviz plugin="${prefix}/rviz_plugin.xml"/>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>
