@@ -75,12 +75,12 @@
 #include <OgreEntity.h>
 #include <OgreMaterialManager.h>
 #include <OgreColourValue.h>
+#include <OgrePrerequisites.h>
 
 namespace Ogre
 {
 
 // Forward declaration
-class Vector3;
 class Quaternion;
 class SceneNode;
 class Entity;
