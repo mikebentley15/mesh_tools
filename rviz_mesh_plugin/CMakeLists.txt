@@ -3,6 +3,15 @@ project(rviz_mesh_plugin)
 
 set(CMAKE_CXX_STANDARD 14)
 
+## This setting causes Qt's "MOC" generation to happen automatically.
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+if(CMAKE_VERSION VERSION_LESS "3.7.0")
+  set(CMAKE_INCLUDE_CURRENT_DIR ON)
+endif()
+
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rviz_common REQUIRED)
@@ -10,9 +19,6 @@ find_package(rviz_rendering REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(mesh_msgs REQUIRED)
 find_package(pluginlib REQUIRED)
-
-## This setting causes Qt's "MOC" generation to happen automatically.
-set(CMAKE_AUTOMOC ON)
 
 find_package(Qt5 COMPONENTS Core Gui OpenGL Widgets REQUIRED)
 
@@ -30,6 +36,18 @@ set(SOURCE_FILES
 )
 
 add_library(rviz_mesh_plugin ${SOURCE_FILES})
+set_property(TARGET rviz_mesh_plugin PROPERTY CXX_STANDARD 14)
+
+#target_include_directories(rviz_mesh_plugin PUBLIC
+#  ${rviz_rendering_INCLUDE_DIRS}
+#  ${rviz2_INCLUDE_DIRS}
+#  ${mesh_msgs_INCLUDE_DIRS}
+#  ${OGRE_INCLUDE_DIRS}
+#)
+target_link_libraries(rviz_mesh_plugin PUBLIC
+  Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Gui
+)
+
 ament_target_dependencies(rviz_mesh_plugin PUBLIC
   mesh_msgs
   pluginlib
@@ -39,22 +57,6 @@ ament_target_dependencies(rviz_mesh_plugin PUBLIC
   OGRE
   std_msgs
 )
-message("rviz_rendering_INCLUDE_DIRS: ${rviz_rendering_INCLUDE_DIRS}")
-message("OGRE_INCLUDE_DIRS: ${OGRE_INCLUDE_DIRS}")
-message("Qt_INCLUDE_DIRS: ${Qt_INCLUDE_DIRS}")
-message("QT_INCLUDE_DIRS: ${QT_INCLUDE_DIRS}")
-message("Qt5_INCLUDE_DIRS: ${Qt5_INCLUDE_DIRS}")
-message("QT5_INCLUDE_DIRS: ${QT5_INCLUDE_DIRS}")
-target_include_directories(rviz_mesh_plugin PUBLIC
-  ${rviz_rendering_INCLUDE_DIRS}
-  ${rviz2_INCLUDE_DIRS}
-  ${mesh_msgs_INCLUDE_DIRS}
-  ${OGRE_INCLUDE_DIRS}
-)
-target_link_libraries(rviz_mesh_plugin PUBLIC
-  Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Gui)
-
-
 ament_export_dependencies(
   Qt5
   mesh_msgs
