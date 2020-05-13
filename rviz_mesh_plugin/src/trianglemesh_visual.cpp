@@ -110,9 +110,9 @@ namespace rviz_mesh_plugin
     m_mesh->clear();
     sstm.str("");
     sstm.flush();
-    m_meshGeneralMaterial.setNull();
-    m_meshColoredTrianglesMaterial.setNull();
-    m_normalMaterial.setNull();
+    m_meshGeneralMaterial.reset();
+    m_meshColoredTrianglesMaterial.reset();
+    m_normalMaterial.reset();
   }
 
   void TriangleMeshVisual::showWireframe(

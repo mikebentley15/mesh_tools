@@ -195,11 +195,11 @@ namespace rviz_mesh_plugin
     sstm.str("");
     sstm.flush();
 
-    m_meshGeneralMaterial.setNull();
-    m_normalMaterial.setNull();
-    m_noTexCluMaterial.setNull();
+    m_meshGeneralMaterial.reset();
+    m_normalMaterial.reset();
+    m_noTexCluMaterial.reset();
     m_textureMaterials.clear();
-    m_vertexCostMaterial.setNull();
+    m_vertexCostMaterial.reset();
 
     m_images.clear();
 
