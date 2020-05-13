@@ -221,15 +221,15 @@ namespace rviz_mesh_plugin
         float normalsScalingFactor)
   {
     // remove all passes
-    if (!m_meshGeneralMaterial.isNull()){
+    if (m_meshGeneralMaterial) {
       m_meshGeneralMaterial->getTechnique(0)->removeAllPasses();
     }
 
-    if(!m_meshColoredTrianglesMaterial.isNull()){
+    if(m_meshColoredTrianglesMaterial) {
       m_meshColoredTrianglesMaterial->getTechnique(0)->removeAllPasses();
     }
 
-    if (!m_normalMaterial.isNull()){
+    if (m_normalMaterial) {
       m_normalMaterial->getTechnique(0)->removeAllPasses();
     }
 
@@ -240,7 +240,7 @@ namespace rviz_mesh_plugin
     // mesh with the "vertex for each triangle" structure and
     // the m_meshColoredTrianglesMaterial otherwise we can use this
     // general mesh with the m_meshGeneralMaterial
-    if (!m_meshGeneralMaterial.isNull() && !triangleColorsEnabled){
+    if (m_meshGeneralMaterial && !triangleColorsEnabled){
       Ogre::Technique* tech = m_meshGeneralMaterial->getTechnique(0);
 
       if (showFaces){
@@ -256,7 +256,7 @@ namespace rviz_mesh_plugin
       }
     }
 
-    if (!m_meshColoredTrianglesMaterial.isNull() && triangleColorsEnabled){
+    if (m_meshColoredTrianglesMaterial && triangleColorsEnabled){
       Ogre::Technique* tech = m_meshColoredTrianglesMaterial->getTechnique(0);
 
       if (showFaces){
@@ -272,7 +272,7 @@ namespace rviz_mesh_plugin
       }
     }
 
-    if(!m_normalMaterial.isNull()){
+    if (m_normalMaterial) {
       if (showNormals){
         Ogre::Technique* tech = m_normalMaterial->getTechnique(0);
         this->showNormals(tech->createPass(), normalsColor, normalsAlpha);

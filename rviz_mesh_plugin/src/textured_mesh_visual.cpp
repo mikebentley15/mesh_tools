@@ -175,13 +175,13 @@ namespace rviz_mesh_plugin
       Ogre::MaterialManager::getSingleton().remove(textureMaterial->getName());
     }
 
-    if (!m_noTexCluMaterial.isNull())
+    if (m_noTexCluMaterial)
     {
       Ogre::MaterialManager::getSingleton().unload(m_noTexCluMaterial->getName());
       Ogre::MaterialManager::getSingleton().remove(m_noTexCluMaterial->getName());
     }
 
-    if (!m_vertexCostMaterial.isNull())
+    if (m_vertexCostMaterial)
     {
       Ogre::MaterialManager::getSingleton().unload(m_vertexCostMaterial->getName());
       Ogre::MaterialManager::getSingleton().remove(m_vertexCostMaterial->getName());
@@ -323,12 +323,12 @@ namespace rviz_mesh_plugin
   )
   {
     // remove all passes
-    if (!m_meshGeneralMaterial.isNull())
+    if (m_meshGeneralMaterial)
     {
       m_meshGeneralMaterial->getTechnique(0)->removeAllPasses();
     }
 
-    if (!m_normalMaterial.isNull())
+    if (m_normalMaterial)
     {
       m_normalMaterial->getTechnique(0)->removeAllPasses();
     }
@@ -339,7 +339,7 @@ namespace rviz_mesh_plugin
 
     // if the material exists and the textures are not enabled
     // we can use the general mesh with the m_meshGeneralMaterial
-    if (!m_meshGeneralMaterial.isNull() && !showTextures && !showVertexCosts)
+    if (m_meshGeneralMaterial && !showTextures && !showVertexCosts)
     {
       Ogre::Technique* tech = m_meshGeneralMaterial->getTechnique(0);
 
@@ -370,7 +370,7 @@ namespace rviz_mesh_plugin
       this->showWireframe(tech->createPass(), wireframeColor, wireframeAlpha);
     }
 
-    if (!m_normalMaterial.isNull())
+    if (m_normalMaterial)
     {
       if (showNormals)
       {
@@ -495,7 +495,7 @@ void TexturedMeshVisual::enteringColoredTriangleMesh(
   const mesh_msgs::msg::MeshVertexColors& vertexColors)
 {
 
-  if (m_meshGeneralMaterial.isNull())
+  if (!m_meshGeneralMaterial)
   {
     std::stringstream sstm;
     sstm << m_prefix << "_TexturedMesh_" << m_postfix << "_" << m_random << "GeneralMaterial_";
@@ -588,7 +588,7 @@ void TexturedMeshVisual::enteringTriangleMeshWithVertexCosts(
     return;
   }
 
-  if (m_vertexCostMaterial.isNull())
+  if (!m_vertexCostMaterial)
   {
     std::stringstream sstm;
     sstm << m_prefix << "_TexturedMesh_" << m_postfix << "_" << m_random << "VertexCostMaterial_";
