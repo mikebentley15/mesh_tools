@@ -1,64 +1,46 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
 project(mesh_msgs)
 
-find_package(catkin REQUIRED COMPONENTS
-  geometry_msgs
-  message_generation
-  roscpp
-  sensor_msgs
-  std_msgs
-)
+set(CMAKE_CXX_STANDARD 14)
 
-add_message_files(
-  FILES
-  MeshFaceCluster.msg
-  MeshFaceClusterStamped.msg
-  Feature.msg
-  MeshMaterial.msg
-  MeshFeatures.msg
-  MeshGeometry.msg
-  MeshGeometryStamped.msg
-  MeshMaterials.msg
-  MeshMaterialsStamped.msg
-  MeshVertexColors.msg
-  MeshVertexColorsStamped.msg
-  MeshVertexCosts.msg
-  MeshVertexCostsStamped.msg
-  MeshTexture.msg
-  TriangleIndices.msg
-  TriangleMesh.msg
-  TriangleMeshStamped.msg
-  VectorField.msg
-  VectorFieldStamped.msg
-  MeshVertexTexCoords.msg
-)
+find_package(ament_cmake REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
 
-add_service_files(
-  DIRECTORY
-  service
-  FILES
-  GetGeometry.srv
-  GetLabeledClusters.srv
-  GetMaterials.srv
-  GetTexture.srv
-  GetUUID.srv
-  GetVertexColors.srv
-  GetVertexCosts.srv
-)
-
-generate_messages(
+rosidl_generate_interfaces(${PROJECT_NAME}
+    msg/Feature.msg
+    msg/MeshFaceCluster.msg
+    msg/MeshFaceClusterStamped.msg
+    msg/MeshFeatures.msg
+    msg/MeshGeometry.msg
+    msg/MeshGeometryStamped.msg
+    msg/MeshMaterial.msg
+    msg/MeshMaterials.msg
+    msg/MeshMaterialsStamped.msg
+    msg/MeshTexture.msg
+    msg/MeshVertexColors.msg
+    msg/MeshVertexColorsStamped.msg
+    msg/MeshVertexCosts.msg
+    msg/MeshVertexCostsStamped.msg
+    msg/MeshVertexTexCoords.msg
+    msg/TriangleIndices.msg
+    msg/TriangleMesh.msg
+    msg/TriangleMeshStamped.msg
+    msg/VectorField.msg
+    msg/VectorFieldStamped.msg
+    srv/GetGeometry.srv
+    srv/GetLabeledClusters.srv
+    srv/GetMaterials.srv
+    srv/GetTexture.srv
+    srv/GetUUID.srv
+    srv/GetVertexColors.srv
+    srv/GetVertexCosts.srv
   DEPENDENCIES
-  geometry_msgs
-  sensor_msgs
-  std_msgs
-)
-
-catkin_package(
-  INCLUDE_DIRS
-  CATKIN_DEPENDS
     geometry_msgs
-    message_runtime
-    roscpp
     sensor_msgs
     std_msgs
 )
+
+ament_package()
