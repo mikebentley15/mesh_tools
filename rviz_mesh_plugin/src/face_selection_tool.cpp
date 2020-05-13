@@ -72,7 +72,7 @@ FaceSelectionTool::FaceSelectionTool()
   mesh_topic = new rviz::RosTopicProperty(
     "Mesh Topic",
     "segment_mesh",
-    QString::fromStdString(ros::message_traits::datatype<mesh_msgs::msg::TriangleMeshStamped>()),
+    QString::fromStdString(rosidl_generator_traits::data_type<mesh_msgs::msg::TriangleMeshStamped>()),
     "Mesh topic to subscribe to.",
     getPropertyContainer(),
     SLOT( updateTopic() ),

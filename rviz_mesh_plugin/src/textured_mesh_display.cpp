@@ -96,7 +96,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_meshTopic = new rviz::RosTopicProperty(
         "Geometry Topic",
         "",
-        QString::fromStdString(ros::message_traits::datatype<mesh_msgs::msg::MeshGeometryStamped>()),
+        QString::fromStdString(rosidl_generator_traits::data_type<mesh_msgs::msg::MeshGeometryStamped>()),
         "Geometry topic to subscribe to.",
         this,
         SLOT(updateTopic())
@@ -141,7 +141,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_vertexColorsTopic = new rviz::RosTopicProperty(
         "Vertex Colors Topic",
         "",
-        QString::fromStdString(ros::message_traits::datatype<mesh_msgs::msg::MeshVertexColorsStamped>()),
+        QString::fromStdString(rosidl_generator_types::data_type<mesh_msgs::msg::MeshVertexColorsStamped>()),
         "Vertex color topic to subscribe to.",
         m_displayType,
         SLOT(updateTopic()),
@@ -151,7 +151,7 @@ TexturedMeshDisplay::TexturedMeshDisplay()
     m_vertexCostsTopic = new rviz::RosTopicProperty(
         "Vertex Costs Topic",
         "",
-        QString::fromStdString(ros::message_traits::datatype<mesh_msgs::msg::MeshVertexCostsStamped>()),
+        QString::fromStdString(rosidl_generator_types::data_type<mesh_msgs::msg::MeshVertexCostsStamped>()),
         "Vertex cost topic to subscribe to.",
         m_displayType,
         SLOT(updateTopic()),

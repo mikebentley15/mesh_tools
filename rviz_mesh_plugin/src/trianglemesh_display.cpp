@@ -86,7 +86,7 @@ TriangleMeshDisplay::TriangleMeshDisplay()
     m_meshTopic = new rviz::RosTopicProperty(
         "Topic",
         "",
-        QString::fromStdString(ros::message_traits::datatype<mesh_msgs::TriangleMeshStamped>()),
+        QString::fromStdString(rosidl_generator_traits::data_type<mesh_msgs::msg::TriangleMeshStamped>()),
         "Mesh topic to subscribe to.",
         this,
         SLOT(updateTopic())
